@@ -2,6 +2,10 @@ project(world-gen)
 cmake_minimum_required(VERSION 3.16)
 set_property(GLOBAL PROPERTY CXX_STANDARD C++17)
 
+set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb -pthread")
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall -pthread")
+
 find_package(SDL2 REQUIRED)
 add_executable(${PROJECT_NAME} app.cpp)
 add_subdirectory(src)
