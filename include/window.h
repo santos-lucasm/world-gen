@@ -8,6 +8,8 @@ extern "C" {
 class Window {
 public:
     Window(const unsigned int size_w, const unsigned int size_h);
+
+    ~Window();
 private:
     SDL_Window* window_;
 };

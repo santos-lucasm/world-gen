@@ -3,7 +3,9 @@
 Window::Window(const unsigned int size_w, const unsigned int size_h)
     : window_(nullptr)
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    {
+        //TODO: handle err
         return;
     }
 
@@ -11,4 +13,13 @@ Window::Window(const unsigned int size_w, const unsigned int size_h)
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
                                 size_w, size_h, 0);
+    if(!window_)
+    {
+        //TODO: handle err
+    }
+}
+
+Window::~Window()
+{
+    SDL_DestroyWindow(window_);
 }
