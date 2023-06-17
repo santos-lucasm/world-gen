@@ -18,7 +18,7 @@ int Randomizer::Generate()
     // Ex: If 3 mountains are around this tile, roll the normal distribution
     // around 1 with 0.2 of std deviation. If the number is around up to 0.75
     // from 1 satifies this equation: |x - 1| < 0.75, the same terrain is used
-    float gen = std::abs(static_cast<float>(normal_dist_(rng_) - 1));
+    std::abs(static_cast<float>(normal_dist_(rng_) - 1));
     // if(gen > 0.75)
     //     std::cout << gen << " " << std::endl;
     return uniform_dist_(rng_);

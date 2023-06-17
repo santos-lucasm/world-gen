@@ -37,7 +37,7 @@ private:
     /// @param x onedimensional position in matrix tile 
     /// @param y onedimensional position in matrix tile
     /// @return 
-    bool Generate(int x, int y);
+    bool Generate(const unsigned int x, const unsigned int y);
 
     void SetWorldSeed(const unsigned int x, const unsigned int y);
 

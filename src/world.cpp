@@ -11,7 +11,7 @@ World::World(const unsigned int size_x, const unsigned int size_y)
     }
 
     tiles_ = new Tile*[size_y_];
-    for(int i = 0; i < size_y_; ++i)
+    for(unsigned int i = 0; i < size_y_; ++i)
     {
         tiles_[i] = new Tile[size_x_];
     }
@@ -22,7 +22,7 @@ World::World(const unsigned int size_x, const unsigned int size_y)
 World::~World()
 {
 
-    for(int i = 0; i < size_y_; ++i)
+    for(unsigned int i = 0; i < size_y_; ++i)
     {
         delete tiles_[i];
     }
@@ -37,9 +37,9 @@ void World::ProceduralGeneration()
 //-----------------------------------------------------------------------------
 void World::Draw()
 {
-    for(int i = 0; i < size_y_; ++i)
+    for(unsigned int i = 0; i < size_y_; ++i)
     {
-        for(int j = 0; j < size_x_; ++j)
+        for(unsigned int j = 0; j < size_x_; ++j)
         {
             tiles_[i][j].Draw();
         }
@@ -47,7 +47,7 @@ void World::Draw()
     }
 }
 //-----------------------------------------------------------------------------
-bool World::Generate(int x, int y)
+bool World::Generate(const unsigned int x, const unsigned int y)
 {
     //TODO: Remove position, find all seeds and create a thread to each one
     if(x < 0 || x >= size_x_)
@@ -57,7 +57,7 @@ bool World::Generate(int x, int y)
     if(tiles_[y][x].IsInitialized() )
         return false;
 
-    int n_mountains = 0, n_ground = 0, n_water = 0;
+    // int n_mountains = 0, n_ground = 0, n_water = 0;
 
     tiles_[y][x].SetTerrain(rand_->Generate());
     tiles_[y][x].Initialize();
