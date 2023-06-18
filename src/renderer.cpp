@@ -41,6 +41,4 @@ void Renderer::Render()
 
     // Render the rect to the screen
     SDL_RenderPresent(renderer_);
-
-    SDL_Delay( 200 );
 }
