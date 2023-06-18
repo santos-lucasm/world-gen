@@ -5,6 +5,7 @@
 #include <atomic>
 #include "window.h"
 #include "world.h"
+#include "renderer.h"
 
 class Game {
 public:
@@ -18,6 +19,7 @@ public:
 private:
     std::shared_ptr<Window> window_;
     std::unique_ptr<World> world_;
+    std::unique_ptr<Renderer> renderer_;
     bool is_running_; //TODO: change this to atomic
     SDL_Event event_;
 };

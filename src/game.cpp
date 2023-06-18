@@ -1,12 +1,13 @@
 #include <thread>
 #include "game.h"
 //-----------------------------------------------------------------------------
-constexpr unsigned int W_WIDTH = 512;//1024;
-constexpr unsigned int W_HEIGHT = 384;//768;
+constexpr unsigned int W_WIDTH = 1024;
+constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
     window_ = std::make_shared<Window>(W_WIDTH, W_HEIGHT);
+    renderer_ = std::make_unique<Renderer>(window_);
     // world_  = std::make_unique<World>(W_WIDTH/16, W_HEIGHT/16);
     // world_->ProceduralGeneration();
     // world_->Draw();
@@ -31,8 +32,8 @@ void Game::Run()
             }
         }
 
+        renderer_->Render();
     }
-    // window_->Run();
 }
 //-----------------------------------------------------------------------------
 std::shared_ptr<Window> Game::CurrentWindow()
