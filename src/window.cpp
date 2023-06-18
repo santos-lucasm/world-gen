@@ -1,4 +1,5 @@
 #include "window.h"
+#include <iostream>
 //-----------------------------------------------------------------------------
 Window::Window(const unsigned int size_w, const unsigned int size_h)
     : window_(nullptr)
@@ -28,5 +29,10 @@ Window::~Window()
 const std::string Window::GetTitle()
 {
     return std::string( SDL_GetWindowTitle(window_) );
+}
+//-----------------------------------------------------------------------------
+SDL_Window* Window::GetSdlRef()
+{
+    return window_;
 }
 //-----------------------------------------------------------------------------

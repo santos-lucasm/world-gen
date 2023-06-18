@@ -3,10 +3,16 @@
 
 extern "C" {
     #include <SDL2/SDL.h>
+    #include <SDL2/SDL_image.h>
 }
 
 #include <string>
 
+/**
+ * @brief Main program window to handle graphics
+ * 
+ * Will handle mouse scroll button and display world terrain upon generation
+ */
 class Window {
 public:
     Window(const unsigned int size_w, const unsigned int size_h);
@@ -14,6 +20,8 @@ public:
     ~Window();
 
     const std::string GetTitle();
+
+    SDL_Window* GetSdlRef();
 private:
     SDL_Window* window_;
 };
