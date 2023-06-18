@@ -2,6 +2,7 @@
 #define __WORLD_H__
 
 #include <iostream>
+#include <memory>
 #include "tile.h"
 #include "randomizer.h"
 //TODO: finish documentation
@@ -44,9 +45,9 @@ private:
 private:
     const unsigned int size_x_;
     const unsigned int size_y_;
-    //TODO: Use smart pointer
-    Tile ** tiles_;
-    Randomizer * rand_;
+
+    std::unique_ptr<std::unique_ptr<Tile[]>[]> tiles_;
+    std::unique_ptr<Randomizer> rand_;
 };
 
 #endif

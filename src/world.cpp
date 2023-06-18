@@ -2,7 +2,7 @@
 #include "randomizer.h"
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)
-    : size_x_(size_x), size_y_(size_y), tiles_(nullptr), rand_(nullptr)
+    : size_x_(size_x), size_y_(size_y)
 {
     if( !IsValidSize(size_x_) || !IsValidSize(size_y_) )
     {
@@ -10,23 +10,18 @@ World::World(const unsigned int size_x, const unsigned int size_y)
         exit(1);
     }
 
-    tiles_ = new Tile*[size_y_];
+    tiles_ = std::make_unique< std::unique_ptr<Tile[]> []>(size_y_);
     for(unsigned int i = 0; i < size_y_; ++i)
     {
-        tiles_[i] = new Tile[size_x_];
+        tiles_[i] = std::make_unique<Tile[]>(size_x_);
     }
 
-    rand_ = new Randomizer(MAX_TERRAIN_TYPES);
+    rand_ = std::make_unique<Randomizer>(MAX_TERRAIN_TYPES);
 }
 //-----------------------------------------------------------------------------
 World::~World()
 {
 
-    for(unsigned int i = 0; i < size_y_; ++i)
-    {
-        delete tiles_[i];
-    }
-    delete tiles_;
 }
 //-----------------------------------------------------------------------------
 void World::ProceduralGeneration()
