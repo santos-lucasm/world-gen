@@ -10,8 +10,10 @@ public:
     Game();
 
     void Run();
+
+    std::shared_ptr<Window> CurrentWindow();
 private:
-    std::unique_ptr<Window> window_;
+    std::shared_ptr<Window> window_;
     std::unique_ptr<World> world_;
 };
 
