@@ -1,5 +1,5 @@
 #include "window.h"
-
+//-----------------------------------------------------------------------------
 Window::Window(const unsigned int size_w, const unsigned int size_h)
     : window_(nullptr)
 {
@@ -18,8 +18,15 @@ Window::Window(const unsigned int size_w, const unsigned int size_h)
         //TODO: handle err
     }
 }
-
+//-----------------------------------------------------------------------------
 Window::~Window()
 {
     SDL_DestroyWindow(window_);
+    SDL_Quit();
 }
+//-----------------------------------------------------------------------------
+const std::string Window::GetTitle()
+{
+    return std::string( SDL_GetWindowTitle(window_) );
+}
+//-----------------------------------------------------------------------------
