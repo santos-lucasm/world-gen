@@ -2,6 +2,9 @@
 #define __MAIN_W_H__
 
 #include "windows/window.h"
+#include <memory>
+
+class World;
 
 class MainWindow : public Window {
 public:
@@ -10,5 +13,7 @@ public:
     ~MainWindow();
 
     void Update() override;
+private:
+    std::unique_ptr<World> world_;
 };
 #endif

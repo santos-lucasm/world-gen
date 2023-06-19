@@ -1,4 +1,4 @@
-#include "randomizer.h"
+#include "windows/main_w/randomizer.h"
 #include <iostream>
 #include <cmath>
 //-----------------------------------------------------------------------------

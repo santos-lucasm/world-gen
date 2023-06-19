@@ -15,11 +15,6 @@ Game::Game() : is_running_(false)
 
     windows_.push(std::make_shared<MainWindow>(W_WIDTH, W_HEIGHT));
     renderer_ = std::make_unique<Renderer>(CurrentWindow());
-
-    //TODO: move this to main window
-    // world_  = std::make_unique<World>(W_WIDTH/16, W_HEIGHT/16);
-    // world_->ProceduralGeneration();
-    // world_->Draw();
 }
 //-----------------------------------------------------------------------------
 void Game::Run()

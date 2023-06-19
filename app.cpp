@@ -3,11 +3,7 @@
 
 int main()
 {
-    //TODO: This should be a class
-
-    std::cout << "Starting app" << std::endl;
-    Game world_gen = Game();
+    Game world_gen;
     world_gen.Run();
-    std::cout << "Finishing app" << std::endl;
     return 0;
 }

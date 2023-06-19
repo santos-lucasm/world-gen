@@ -1,5 +1,5 @@
-#include "world.h"
-#include "randomizer.h"
+#include "windows/main_w/world.h"
+#include "windows/main_w/randomizer.h"
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)
     : size_x_(size_x), size_y_(size_y)

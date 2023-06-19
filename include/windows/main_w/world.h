@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <memory>
-#include "tile.h"
-#include "randomizer.h"
+#include "windows/main_w/tile.h"
+#include "windows/main_w/randomizer.h"
 //TODO: finish documentation
 
 class World
