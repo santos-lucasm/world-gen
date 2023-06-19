@@ -6,8 +6,6 @@ extern "C" {
     #include <SDL2/SDL_image.h>
 }
 
-#include <string>
-
 /**
  * @brief Main program window to handle graphics
  * 
@@ -19,10 +17,10 @@ public:
 
     ~Window();
 
-    const std::string GetTitle();
+    virtual void Update() = 0;
 
     SDL_Window* GetSdlRef();
-private:
+protected:
     SDL_Window* window_;
 };
 
