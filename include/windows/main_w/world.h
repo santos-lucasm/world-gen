@@ -5,7 +5,6 @@
 #include <memory>
 #include "windows/main_w/tile.h"
 #include "windows/main_w/randomizer.h"
-//TODO: finish documentation
 
 class World
 {

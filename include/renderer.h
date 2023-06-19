@@ -17,7 +17,7 @@ public:
 
     void Render();
 private:
-    std::shared_ptr<Window> window_; //TODO: maybe this will be a vector of windows
+    std::shared_ptr<Window> window_;
     SDL_Texture* texture_;
     SDL_Renderer* renderer_;
 };
