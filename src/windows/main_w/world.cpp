@@ -31,18 +31,17 @@ void World::ProceduralGeneration()
     Generate(size_x_/2, size_y_/2);
 }
 //-----------------------------------------------------------------------------
-void World::Draw()
+terrain_t World::GetTerrain(const unsigned int x, const unsigned int y)
 {
-    for(unsigned int i = 0; i < size_y_; ++i)
-    {
-        for(unsigned int j = 0; j < size_x_; ++j)
-        {
-            tiles_[i][j].Draw();
-        }
-        std::cout << std::endl;
-    }
+
+    return tiles_[y][x].GetTerrain();
 }
-//-----------------------------------------------------------------------------
+//------------- ----------------------------------------------------------------
+std::tuple<const unsigned int, const unsigned int> World::GetWorldSize()
+{
+    return {size_x_, size_y_};
+}
+//------------- ----------------------------------------------------------------
 bool World::Generate(const unsigned int x, const unsigned int y)
 {
     //TODO: Remove position, find all seeds and create a thread to each one

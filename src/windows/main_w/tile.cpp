@@ -6,9 +6,9 @@ Tile::Tile() : seed_(false), init_(false), terrain_(terrain_t::NONE)
 
 }
 //-----------------------------------------------------------------------------
-void Tile::Draw()
+terrain_t Tile::GetTerrain()
 {
-    std::cout << terrain_ << " ";
+    return terrain_;
 }
 //-----------------------------------------------------------------------------
 void Tile::SetAsSeed()

@@ -1,16 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-#define MAX_TERRAIN_TYPES 4
-
-/// @brief Current terrain types supported in world generation
-enum
-{
-    NONE,
-    WATER,
-    GROUND,
-    MOUNTAIN
-} typedef terrain_t;
+#include "windows/main_w/terrain_types.h"
 
 class Tile
 {
@@ -19,9 +10,9 @@ public:
     /// Tile parameters will be set during world generation
     Tile();
 
-    /// @brief Just print the terrain type in integer format to the std output
-    /// Output format is "(int)<terrain_t> "
-    void Draw();
+    /// @brief Returns terrain_t for initialized terrains and NONE type
+    /// for non initialized terrains
+    terrain_t GetTerrain();
 
     /// @brief Set seed_ to true
     /// Used to inform that this is a start point in world generation

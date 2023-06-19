@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+#include <tuple>
 #include "windows/main_w/tile.h"
 #include "windows/main_w/randomizer.h"
 
@@ -19,12 +20,12 @@ public:
     /// @brief Deallocates all memmory from heap
     ~World();
 
-
     void ProceduralGeneration();
 
-    /// @brief Draw all the world tiles in the correct order
-    void Draw();
+    /// @brief Retrieve terrain type of a specific Tile
+    terrain_t GetTerrain(const unsigned int x, const unsigned int y);
 
+    std::tuple<const unsigned int, const unsigned int> GetWorldSize();
 
 private:
 
