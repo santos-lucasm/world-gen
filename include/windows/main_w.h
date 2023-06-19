@@ -5,6 +5,7 @@
 #include <memory>
 
 class World;
+class RenderMainWindow;
 
 class MainWindow : public Window {
 public:
@@ -13,7 +14,10 @@ public:
     ~MainWindow();
 
     void Update() override;
+
+    void Render() override;
 private:
     std::unique_ptr<World> world_;
+    std::unique_ptr<RenderMainWindow> w_render_;
 };
 #endif

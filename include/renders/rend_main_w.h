@@ -7,19 +7,18 @@ extern "C" {
 }
 
 #include <memory>
-#include "windows/window.h"
+#include "windows/main_w.h"
 
 class RenderMainWindow {
 public:
-    RenderMainWindow(std::shared_ptr<Window> window);
+    RenderMainWindow(SDL_Window* window);
 
     ~RenderMainWindow();
 
     void Render();
 private:
-    std::shared_ptr<Window> window_;
     SDL_Texture* texture_;
-    SDL_Renderer* renderer_;
+    SDL_Renderer* sdl_renderer_;
 };
 
 #endif
