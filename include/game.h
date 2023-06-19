@@ -4,7 +4,7 @@
 #include <memory>
 #include <stack>
 #include "windows/window.h"
-#include "renderer.h"
+#include "renders/rend_main_w.h"
 
 class Game {
 public:
@@ -17,7 +17,7 @@ public:
     bool IsRunning();
 private:
     std::stack<std::shared_ptr<Window>> windows_;
-    std::unique_ptr<Renderer> renderer_;
+    std::unique_ptr<RenderMainWindow> renderer_;
     bool is_running_; //TODO: change this to atomic
     SDL_Event event_;
 };

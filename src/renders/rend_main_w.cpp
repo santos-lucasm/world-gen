@@ -1,6 +1,6 @@
-#include "renderer.h"
+#include "renders/rend_main_w.h"
 
-Renderer::Renderer(std::shared_ptr<Window> window)
+RenderMainWindow::RenderMainWindow(std::shared_ptr<Window> window)
     : renderer_(NULL), window_(window)
 {
     // triggers the program that controls your graphics hardware and sets flags
@@ -13,12 +13,12 @@ Renderer::Renderer(std::shared_ptr<Window> window)
     }
 }
 
-Renderer::~Renderer()
+RenderMainWindow::~RenderMainWindow()
 {
     SDL_DestroyRenderer(renderer_);
 }
 
-void Renderer::Render()
+void RenderMainWindow::Render()
 {
     // Set render color to red ( background will be rendered in this color )
     int res;

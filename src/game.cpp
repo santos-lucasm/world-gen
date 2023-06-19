@@ -18,7 +18,7 @@ Game::Game() : is_running_(false)
     //every window will have its renderer
     //main loop will call something like CurrentWindow()->Render()
     //from base Window class
-    renderer_ = std::make_unique<Renderer>(CurrentWindow());
+    renderer_ = std::make_unique<RenderMainWindow>(CurrentWindow());
 }
 //-----------------------------------------------------------------------------
 void Game::Run()

@@ -1,5 +1,5 @@
-#ifndef __RENDERER_H__
-#define __RENDERER_H__
+#ifndef __REND_MAIN_W_H__
+#define __REND_MAIN_W_H__
 
 extern "C" {
     #include <SDL2/SDL.h>
@@ -9,11 +9,11 @@ extern "C" {
 #include <memory>
 #include "windows/window.h"
 
-class Renderer {
+class RenderMainWindow {
 public:
-    Renderer(std::shared_ptr<Window> window);
+    RenderMainWindow(std::shared_ptr<Window> window);
 
-    ~Renderer();
+    ~RenderMainWindow();
 
     void Render();
 private:
