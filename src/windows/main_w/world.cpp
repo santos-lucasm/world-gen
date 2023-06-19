@@ -1,5 +1,6 @@
 #include "windows/main_w/world.h"
 #include "windows/main_w/randomizer.h"
+#include <thread>
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)
     : size_x_(size_x), size_y_(size_y)
@@ -56,6 +57,7 @@ bool World::Generate(const unsigned int x, const unsigned int y)
 
     tiles_[y][x].SetTerrain(rand_->Generate());
     tiles_[y][x].Initialize();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     Generate(x-1, y);
     Generate(x+1, y);
