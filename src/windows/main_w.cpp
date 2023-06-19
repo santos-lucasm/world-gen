@@ -16,14 +16,14 @@ MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
 
     w_render_ = std::make_unique<RenderMainWindow>(GetSdlRef());
 
-    world_ = std::make_unique<World>(size_w/16, size_h/16);
+    world_ = std::make_shared<World>(size_w/16, size_h/16);
     world_gen_thread_ = std::thread(&World::ProceduralGeneration, world_.get());
 }
 //-----------------------------------------------------------------------------
 MainWindow::~MainWindow()
 {
-    world_gen_thread_.join();
-    world_->Draw();
+    // activate to not let user close window before world generation is over
+    // world_gen_thread_.join();
 }
 //-----------------------------------------------------------------------------
 void MainWindow::Update()
@@ -33,6 +33,6 @@ void MainWindow::Update()
 //-----------------------------------------------------------------------------
 void MainWindow::Draw()
 {
-    w_render_->Render();
+    w_render_->Render(world_);
 }
 //-----------------------------------------------------------------------------

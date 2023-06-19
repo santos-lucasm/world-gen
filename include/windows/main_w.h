@@ -18,7 +18,7 @@ public:
 
     void Draw() override;
 private:
-    std::unique_ptr<World> world_;
+    std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainWindow> w_render_;
     std::thread world_gen_thread_;
 };

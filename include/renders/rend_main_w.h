@@ -7,6 +7,7 @@ extern "C" {
 }
 
 #include <memory>
+#include <map>
 #include "windows/main_w.h"
 
 class RenderMainWindow {
@@ -15,7 +16,10 @@ public:
 
     ~RenderMainWindow();
 
-    void Render();
+    void Render(std::shared_ptr<World> world);
+private:
+    // maps terrain to a color
+    std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> color_map_;
 private:
     SDL_Texture* texture_;
     SDL_Renderer* sdl_renderer_;
