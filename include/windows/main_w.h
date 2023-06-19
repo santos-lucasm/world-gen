@@ -15,7 +15,7 @@ public:
 
     void Update() override;
 
-    void Render() override;
+    void Draw() override;
 private:
     std::unique_ptr<World> world_;
     std::unique_ptr<RenderMainWindow> w_render_;

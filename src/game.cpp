@@ -37,7 +37,7 @@ void Game::Run()
         }
         
         CurrentWindow()->Update();
-        CurrentWindow()->Render();
+        CurrentWindow()->Draw();
 
         SDL_Delay( 1000 / 60 ); // 60fps
     }

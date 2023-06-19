@@ -19,7 +19,7 @@ public:
 
     virtual void Update() = 0;
 
-    virtual void Render() = 0;
+    virtual void Draw() = 0;
 
     SDL_Window* GetSdlRef();
 protected:

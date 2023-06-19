@@ -31,7 +31,7 @@ void MainWindow::Update()
 
 }
 //-----------------------------------------------------------------------------
-void MainWindow::Render()
+void MainWindow::Draw()
 {
     w_render_->Render();
 }
