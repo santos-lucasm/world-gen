@@ -19,6 +19,8 @@ public:
 
     virtual void Update() = 0;
 
+    virtual void Render() = 0;
+
     SDL_Window* GetSdlRef();
 protected:
     SDL_Window* window_;
