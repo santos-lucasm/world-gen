@@ -14,11 +14,6 @@ Game::Game() : is_running_(false)
     }
 
     windows_.push(std::make_shared<MainWindow>(W_WIDTH, W_HEIGHT));
-    //TODO: move this to be accessed only by MainWindow
-    //every window will have its renderer
-    //main loop will call something like CurrentWindow()->Render()
-    //from base Window class
-    renderer_ = std::make_unique<RenderMainWindow>(CurrentWindow());
 }
 //-----------------------------------------------------------------------------
 void Game::Run()
@@ -42,7 +37,7 @@ void Game::Run()
         }
         
         CurrentWindow()->Update();
-        renderer_->Render();
+        CurrentWindow()->Render();
 
         SDL_Delay( 1000 / 60 ); // 60fps
     }
