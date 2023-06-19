@@ -1,13 +1,22 @@
 #include <thread>
 #include "game.h"
+#include "windows/main_w.h"
 //-----------------------------------------------------------------------------
 constexpr unsigned int W_WIDTH = 1024;
 constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
-    window_ = std::make_shared<Window>(W_WIDTH, W_HEIGHT);
-    renderer_ = std::make_unique<Renderer>(window_);
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    {
+        //TODO: handle err
+        return;
+    }
+
+    windows_.push(std::make_shared<MainWindow>(W_WIDTH, W_HEIGHT));
+    renderer_ = std::make_unique<Renderer>(CurrentWindow());
+
+    //TODO: move this to main window
     // world_  = std::make_unique<World>(W_WIDTH/16, W_HEIGHT/16);
     // world_->ProceduralGeneration();
     // world_->Draw();
@@ -27,11 +36,11 @@ void Game::Run()
                     is_running_ = false;
                     break;
                 default:
-                    std::cout << "w title: " << CurrentWindow().get()->GetTitle() << std::endl;
                     break;
             }
         }
-
+        
+        CurrentWindow()->Update();
         renderer_->Render();
 
         SDL_Delay( 1000 / 60 ); // 60fps
@@ -40,7 +49,7 @@ void Game::Run()
 //-----------------------------------------------------------------------------
 std::shared_ptr<Window> Game::CurrentWindow()
 {
-    return window_;
+    return windows_.top();
 }
 //-----------------------------------------------------------------------------
 bool Game::IsRunning()

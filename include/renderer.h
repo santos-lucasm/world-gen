@@ -7,7 +7,7 @@ extern "C" {
 }
 
 #include <memory>
-#include "window.h"
+#include "windows/window.h"
 
 class Renderer {
 public:

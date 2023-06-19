@@ -2,8 +2,8 @@
 #define __GAME_H__
 
 #include <memory>
-#include <atomic>
-#include "window.h"
+#include <stack>
+#include "windows/window.h"
 #include "world.h"
 #include "renderer.h"
 
@@ -17,7 +17,7 @@ public:
 
     bool IsRunning();
 private:
-    std::shared_ptr<Window> window_;
+    std::stack<std::shared_ptr<Window>> windows_;
     std::unique_ptr<World> world_;
     std::unique_ptr<Renderer> renderer_;
     bool is_running_; //TODO: change this to atomic
