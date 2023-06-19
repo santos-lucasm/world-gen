@@ -44,9 +44,9 @@ void RenderMainWindow::Render(std::shared_ptr<World> world)
 
     // terrain_t current;
 
-    for(auto j = 0; j < y; ++j)
+    for(unsigned int j = 0; j < y; ++j)
     {
-        for(auto i = 0; i < x; ++i)
+        for(unsigned int i = 0; i < x; ++i)
         {
             auto current = world->GetTerrain(i, j);
 
