@@ -41,9 +41,8 @@ std::tuple<const unsigned int, const unsigned int> World::GetWorldSize()
     return {size_x_, size_y_};
 }
 //------------- ----------------------------------------------------------------
-bool World::Generate(const unsigned int x, const unsigned int y)
+bool World::Generate(const unsigned int x, const unsigned int y, int ref)
 {
-    //TODO: Remove position, find all seeds and create a thread to each one
     if(x < 0 || x >= size_x_)
         return false;
     if(y < 0 || y >= size_y_)
@@ -51,20 +50,38 @@ bool World::Generate(const unsigned int x, const unsigned int y)
     if(tiles_[y][x].IsInitialized() )
         return false;
 
-    // int n_mountains = 0, n_ground = 0, n_water = 0;
+    int generated_terrain = 0;
     {
         std::scoped_lock lock(tiles_guard_);
-        tiles_[y][x].SetTerrain(rand_->Generate());
+        if(tiles_[y][x].IsSeed() && ref == 0)
+        {
+            generated_terrain = rand_->Generate();
+        }
+        else
+        {
+            generated_terrain = rand_->Generate(ref);
+        }
+        tiles_[y][x].SetTerrain(generated_terrain);
         tiles_[y][x].Initialize();
     }
 #ifdef DEBUG
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 #endif
 
-    Generate(x-1, y);
-    Generate(x+1, y);
-    Generate(x, y+1);
-    Generate(x, y-1);
+    if(tiles_[y][x].IsSeed())
+    {
+        Generate(x-1, y, generated_terrain);
+        Generate(x+1, y, generated_terrain);
+        Generate(x, y+1, generated_terrain);
+        Generate(x, y-1, generated_terrain);
+    }
+    else
+    {
+        Generate(x-1, y, ref);
+        Generate(x+1, y, ref);
+        Generate(x, y+1, ref);
+        Generate(x, y-1, ref);
+    }
     return true;
 }
 //-----------------------------------------------------------------------------
@@ -83,6 +100,6 @@ void World::SetWorldSeed(const unsigned int x, const unsigned int y)
         std::scoped_lock lock(tiles_guard_);
         tiles_[y][x].SetAsSeed();
     }
-    Generate(x, y);
+    Generate(x, y, 0);
 }
 //-----------------------------------------------------------------------------
