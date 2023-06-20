@@ -14,10 +14,10 @@ RenderMainWindow::RenderMainWindow(SDL_Window* window)
     }
 
     color_map_ = std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> {
-        {terrain_t::NONE,  {255, 255, 255}},
-        {terrain_t::WATER, {0, 0, 255}},
-        {terrain_t::GROUND, {0, 255, 0}},
-        {terrain_t::MOUNTAIN, {150, 75, 0}},
+        {terrain_t::NONE,  {255, 255, 255}}, // white
+        {terrain_t::WATER, {0, 0, 255}}, // blue
+        {terrain_t::GROUND, {0, 255, 0}}, // green
+        {terrain_t::MOUNTAIN, {150, 75, 0}}, //brown
     };
 }
 
@@ -31,7 +31,7 @@ void RenderMainWindow::Render(std::shared_ptr<World> world)
     // Set render color to red ( background will be rendered in this color )
     auto [x, y] = world->GetWorldSize();
     
-    // set bg to white
+    // set bg to black
     SDL_SetRenderDrawColor(sdl_renderer_, 0, 0, 0, 0);
 
     // clears the screen
@@ -49,6 +49,8 @@ void RenderMainWindow::Render(std::shared_ptr<World> world)
         for(unsigned int i = 0; i < x; ++i)
         {
             auto current = world->GetTerrain(i, j);
+
+            if(current == terrain_t::NONE) continue;
 
             SDL_SetRenderDrawColor(sdl_renderer_,
                 std::get<0>(color_map_[current]),
