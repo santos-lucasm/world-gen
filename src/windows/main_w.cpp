@@ -17,14 +17,17 @@ MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
     w_render_ = std::make_unique<RenderMainWindow>(GetSdlRef());
 
     world_ = std::make_shared<World>(x_blocks_, y_blocks_);
-    world_seeds_.push_back(std::thread(&World::ProceduralGeneration, world_.get(), 0, 0));
-    world_seeds_.push_back(std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1));
+
+    auto seed1 = std::thread(&World::ProceduralGeneration, world_.get(), 0, 0);
+    auto seed2 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1);
+
+    seed1.detach();
+    seed2.detach();
 }
 //-----------------------------------------------------------------------------
 MainWindow::~MainWindow()
 {
-    // activate to not let user close window before world generation is over
-    // world threads .join();
+
 }
 //-----------------------------------------------------------------------------
 void MainWindow::Update()

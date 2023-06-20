@@ -21,8 +21,6 @@ public:
 private:
     std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainWindow> w_render_;
-    std::vector<std::thread> world_seeds_;
-
     const unsigned int x_blocks_;
     const unsigned int y_blocks_;
 };
