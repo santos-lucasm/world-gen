@@ -6,6 +6,7 @@
 #include <tuple>
 #include "windows/main_w/tile.h"
 #include "windows/main_w/randomizer.h"
+#include <mutex>
 
 class World
 {
@@ -20,7 +21,7 @@ public:
     /// @brief Deallocates all memmory from heap
     ~World();
 
-    void ProceduralGeneration();
+    void ProceduralGeneration(const unsigned int x, const unsigned int y);
 
     /// @brief Retrieve terrain type of a specific Tile
     terrain_t GetTerrain(const unsigned int x, const unsigned int y);
@@ -48,6 +49,7 @@ private:
 
     std::unique_ptr<std::unique_ptr<Tile[]>[]> tiles_;
     std::unique_ptr<Randomizer> rand_;
+    std::mutex tiles_guard_;
 };
 
 #endif

@@ -25,10 +25,9 @@ World::~World()
 
 }
 //-----------------------------------------------------------------------------
-void World::ProceduralGeneration()
+void World::ProceduralGeneration(const unsigned int x, const unsigned int y)
 {
-    SetWorldSeed(size_x_/2, size_y_/2);
-    Generate(size_x_/2, size_y_/2);
+    SetWorldSeed(x, y);
 }
 //-----------------------------------------------------------------------------
 terrain_t World::GetTerrain(const unsigned int x, const unsigned int y)
@@ -53,9 +52,11 @@ bool World::Generate(const unsigned int x, const unsigned int y)
         return false;
 
     // int n_mountains = 0, n_ground = 0, n_water = 0;
-
-    tiles_[y][x].SetTerrain(rand_->Generate());
-    tiles_[y][x].Initialize();
+    {
+        std::scoped_lock lock(tiles_guard_);
+        tiles_[y][x].SetTerrain(rand_->Generate());
+        tiles_[y][x].Initialize();
+    }
 #ifdef DEBUG
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 #endif
@@ -78,6 +79,10 @@ bool World::IsValidSize(const unsigned int size)
 //-----------------------------------------------------------------------------
 void World::SetWorldSeed(const unsigned int x, const unsigned int y)
 {
-    tiles_[y][x].SetAsSeed();
+    {
+        std::scoped_lock lock(tiles_guard_);
+        tiles_[y][x].SetAsSeed();
+    }
+    Generate(x, y);
 }
 //-----------------------------------------------------------------------------

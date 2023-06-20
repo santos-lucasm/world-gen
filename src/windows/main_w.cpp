@@ -3,7 +3,7 @@
 #include "renders/rend_main_w.h"
 //-----------------------------------------------------------------------------
 MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
-    : Window(size_w, size_h)
+    : Window(size_w, size_h), x_blocks_(size_w/16), y_blocks_(size_h/16)
 {
     window_ = SDL_CreateWindow( "world-gen",
                                 SDL_WINDOWPOS_CENTERED,
@@ -16,14 +16,15 @@ MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
 
     w_render_ = std::make_unique<RenderMainWindow>(GetSdlRef());
 
-    world_ = std::make_shared<World>(size_w/16, size_h/16);
-    world_gen_thread_ = std::thread(&World::ProceduralGeneration, world_.get());
+    world_ = std::make_shared<World>(x_blocks_, y_blocks_);
+    world_seeds_.push_back(std::thread(&World::ProceduralGeneration, world_.get(), 0, 0));
+    world_seeds_.push_back(std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1));
 }
 //-----------------------------------------------------------------------------
 MainWindow::~MainWindow()
 {
     // activate to not let user close window before world generation is over
-    // world_gen_thread_.join();
+    // world threads .join();
 }
 //-----------------------------------------------------------------------------
 void MainWindow::Update()
