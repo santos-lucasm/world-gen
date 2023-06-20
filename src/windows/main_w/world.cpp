@@ -56,7 +56,9 @@ bool World::Generate(const unsigned int x, const unsigned int y)
 
     tiles_[y][x].SetTerrain(rand_->Generate());
     tiles_[y][x].Initialize();
+#ifdef DEBUG
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
+#endif
 
     Generate(x-1, y);
     Generate(x+1, y);
