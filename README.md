@@ -1,8 +1,16 @@
+## TODOs
+
+[ ] InputHandler queues polled events
+[ ] Game FSM handle inputs queued, change current window accordingly
+[ ] Game repass inputs queued to Windows FSMs to handle its own states
+[ ] Windows Update method updates accordingly to its current FSM state
+[ ] Pause procedural generation
+
 ## Dependencies
 
 Tested with WSL2 v5.10.16.3 using Linux Ubuntu 20.04 LTS
 
-> libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev
+`libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev`
 
 
 ## Help cmake to find SDL Image library
