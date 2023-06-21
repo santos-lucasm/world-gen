@@ -8,19 +8,22 @@
 
 class World;
 class RenderMainWindow;
-//TODO: docs
+class FsmMainWindow;
+enum class Event;
+
 class MainWindow : public Window {
 public:
     MainWindow(const unsigned int size_w, const unsigned int size_h);
 
     ~MainWindow();
 
-    void Update(uint32_t type) override;
+    void Update(Event e) override;
 
     void Draw() override;
 private:
     std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainWindow> w_render_;
+    std::unique_ptr<FsmMainWindow> fsm_;
     const unsigned int x_blocks_;
     const unsigned int y_blocks_;
 };

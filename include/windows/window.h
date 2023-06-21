@@ -6,6 +6,8 @@ extern "C" {
     #include <SDL2/SDL_image.h>
 }
 
+enum class Event;
+
 /**
  * @brief Main program window to handle graphics
  * 
@@ -17,7 +19,7 @@ public:
 
     ~Window();
 
-    virtual void Update(uint32_t) = 0;
+    virtual void Update(Event) = 0;
 
     virtual void Draw() = 0;
 

@@ -5,6 +5,8 @@
 #include <stack>
 #include "windows/window.h"
 
+enum class Event;
+
 class Game {
 public:
     Game();
@@ -17,7 +19,8 @@ public:
 private:
     std::stack<std::shared_ptr<Window>> windows_;
     bool is_running_; //TODO: change this to atomic
-    SDL_Event event_;
+    SDL_Event sdlevent_;
+    Event game_event_;
 };
 
 #endif
