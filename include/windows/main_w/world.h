@@ -7,6 +7,7 @@
 #include "windows/main_w/tile.h"
 #include "windows/main_w/randomizer.h"
 #include <mutex>
+#include <atomic>
 
 class World
 {
@@ -27,6 +28,12 @@ public:
     terrain_t GetTerrain(const unsigned int x, const unsigned int y);
 
     std::tuple<const unsigned int, const unsigned int> GetWorldSize();
+
+    /// @brief Pause ProceduralGeneration if it's running
+    void Pause();
+
+    /// @brief Play ProceduralGeneration again if it's paused
+    void Play();
 
 private:
 
@@ -50,6 +57,7 @@ private:
     std::unique_ptr<std::unique_ptr<Tile[]>[]> tiles_;
     std::unique_ptr<Randomizer> rand_;
     std::mutex tiles_guard_;
+    std::atomic<bool> is_running_;
 };
 
 #endif

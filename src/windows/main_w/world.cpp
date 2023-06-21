@@ -18,6 +18,7 @@ World::World(const unsigned int size_x, const unsigned int size_y)
     }
 
     rand_ = std::make_unique<Randomizer>(MAX_TERRAIN_TYPES);
+    is_running_.store(false, std::memory_order_release);
 }
 //-----------------------------------------------------------------------------
 World::~World()
@@ -27,7 +28,17 @@ World::~World()
 //-----------------------------------------------------------------------------
 void World::ProceduralGeneration(const unsigned int x, const unsigned int y)
 {
+    static int n_threads_running = 0;
+    n_threads_running++;
+    is_running_.store(true, std::memory_order_release);
+
     SetWorldSeed(x, y);
+
+    n_threads_running--;
+    if(n_threads_running == 0)
+    {
+        is_running_.store(false, std::memory_order_release);
+    }
 }
 //-----------------------------------------------------------------------------
 terrain_t World::GetTerrain(const unsigned int x, const unsigned int y)
@@ -35,12 +46,28 @@ terrain_t World::GetTerrain(const unsigned int x, const unsigned int y)
 
     return tiles_[y][x].GetTerrain();
 }
-//------------- ----------------------------------------------------------------
+//------------------------------------------------------------------------------
 std::tuple<const unsigned int, const unsigned int> World::GetWorldSize()
 {
     return {size_x_, size_y_};
 }
-//------------- ----------------------------------------------------------------
+//------------------------------------------------------------------------------
+void World::Pause()
+{
+    if(is_running_.load(std::memory_order_acquire))
+    {
+        is_running_.store(false, std::memory_order_release);
+    }
+}
+//------------------------------------------------------------------------------
+void World::Play()
+{
+    if(!is_running_.load(std::memory_order_acquire))
+    {
+        is_running_.store(true, std::memory_order_release);
+    }
+}
+//------------------------------------------------------------------------------
 bool World::Generate(const unsigned int x, const unsigned int y, int ref)
 {
     if(x < 0 || x >= size_x_)
@@ -49,6 +76,12 @@ bool World::Generate(const unsigned int x, const unsigned int y, int ref)
         return false;
     if(tiles_[y][x].IsInitialized() )
         return false;
+
+#ifdef DEBUG
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+#endif
+    // spin lock if generation is not running anymore (user pause)
+    while(!is_running_.load(std::memory_order_acquire));
 
     int generated_terrain = 0;
     {
@@ -64,9 +97,6 @@ bool World::Generate(const unsigned int x, const unsigned int y, int ref)
         tiles_[y][x].SetTerrain(generated_terrain);
         tiles_[y][x].Initialize();
     }
-#ifdef DEBUG
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-#endif
 
     if(tiles_[y][x].IsSeed())
     {
