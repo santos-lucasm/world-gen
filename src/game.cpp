@@ -31,12 +31,15 @@ void Game::Run()
                 case SDL_QUIT:
                     is_running_ = false;
                     break;
+                case SDL_KEYDOWN:
+                case SDL_KEYUP:
+                    CurrentWindow()->Update(event_.type);
+                    break;
                 default:
                     break;
             }
         }
         
-        CurrentWindow()->Update();
         CurrentWindow()->Draw();
 
         SDL_Delay( 1000 / 60 ); // 60fps

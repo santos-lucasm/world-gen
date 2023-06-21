@@ -19,10 +19,14 @@ MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
     world_ = std::make_shared<World>(x_blocks_, y_blocks_);
 
     auto seed1 = std::thread(&World::ProceduralGeneration, world_.get(), 0, 0);
-    auto seed2 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1);
+    auto seed2 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, 0);
+    auto seed3 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1);
+    auto seed4 = std::thread(&World::ProceduralGeneration, world_.get(), 0, y_blocks_-1);
 
     seed1.detach();
     seed2.detach();
+    seed3.detach();
+    seed4.detach();
 }
 //-----------------------------------------------------------------------------
 MainWindow::~MainWindow()
@@ -30,9 +34,16 @@ MainWindow::~MainWindow()
 
 }
 //-----------------------------------------------------------------------------
-void MainWindow::Update()
+void MainWindow::Update(uint32_t type)
 {
-
+    if(type == 0x300)
+    {
+        world_->Pause();
+    }
+    else
+    {
+        world_->Play();
+    }
 }
 //-----------------------------------------------------------------------------
 void MainWindow::Draw()

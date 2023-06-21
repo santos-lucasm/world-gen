@@ -17,7 +17,7 @@ public:
 
     ~Window();
 
-    virtual void Update() = 0;
+    virtual void Update(uint32_t) = 0;
 
     virtual void Draw() = 0;
 

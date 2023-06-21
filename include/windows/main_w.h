@@ -15,7 +15,7 @@ public:
 
     ~MainWindow();
 
-    void Update() override;
+    void Update(uint32_t type) override;
 
     void Draw() override;
 private:
