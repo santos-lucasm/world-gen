@@ -1,10 +1,8 @@
 ## TODOs
 
-[ ] InputHandler queues polled events
-[ ] Game FSM handle inputs queued, change current window accordingly
-[ ] Game repass inputs queued to Windows FSMs to handle its own states
-[ ] Windows Update method updates accordingly to its current FSM state
-[ ] Pause procedural generation
+- InputHandler queues polled events
+- Game FSM handle inputs queued, change current scene accordingly
+- Send window from Scenes to Renderer
 
 ## Dependencies
 
