@@ -1,7 +1,7 @@
 #include "scenes/main_w/world.h"
-#include "renders/rend_main_w.h"
+#include "renders/rend_main_scene.h"
 
-RenderMainWindow::RenderMainWindow(SDL_Window* window)
+RenderMainScene::RenderMainScene(SDL_Window* window)
     : sdl_renderer_(NULL)
 {
     // triggers the program that controls your graphics hardware and sets flags
@@ -21,12 +21,12 @@ RenderMainWindow::RenderMainWindow(SDL_Window* window)
     };
 }
 
-RenderMainWindow::~RenderMainWindow()
+RenderMainScene::~RenderMainScene()
 {
     SDL_DestroyRenderer(sdl_renderer_);
 }
 
-void RenderMainWindow::Render(std::shared_ptr<World> world)
+void RenderMainScene::Render(std::shared_ptr<World> world)
 {
     // Set render color to red ( background will be rendered in this color )
     auto [x, y] = world->GetWorldSize();

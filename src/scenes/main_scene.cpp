@@ -1,6 +1,6 @@
 #include "scenes/main_scene.h"
 #include "scenes/main_w/world.h"
-#include "renders/rend_main_w.h"
+#include "renders/rend_main_scene.h"
 #include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------
 MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
@@ -15,7 +15,7 @@ MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
         //TODO: handle err
     }
 
-    w_render_ = std::make_unique<RenderMainWindow>(GetSdlRef());
+    w_render_ = std::make_unique<RenderMainScene>(GetSdlRef());
     fsm_ = std::make_unique<FsmMainScene>();
 
     world_ = std::make_shared<World>(x_blocks_, y_blocks_);
