@@ -1,4 +1,4 @@
-#include "scenes/main_w/randomizer.h"
+#include "scenes/main_scene/randomizer.h"
 #include <iostream>
 #include <cmath>
 //-----------------------------------------------------------------------------

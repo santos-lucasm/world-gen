@@ -1,5 +1,5 @@
-#include "scenes/main_w/world.h"
-#include "scenes/main_w/randomizer.h"
+#include "scenes/main_scene/world.h"
+#include "scenes/main_scene/randomizer.h"
 #include <thread>
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)

@@ -18,4 +18,5 @@ add_subdirectory(src)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_directories(${PROJECT_NAME} PRIVATE src)
-target_link_libraries(${PROJECT_NAME} libsrc libscenes libmain_w librenders libfsm ${SDL2_LIBRARIES} SDL2_image)
+target_link_libraries(  ${PROJECT_NAME} libsrc libscenes libmain_scene
+                        librenders libfsm ${SDL2_LIBRARIES} SDL2_image)

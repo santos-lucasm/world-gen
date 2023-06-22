@@ -1,5 +1,5 @@
 #include "scenes/main_scene.h"
-#include "scenes/main_w/world.h"
+#include "scenes/main_scene/world.h"
 #include "renders/rend_main_scene.h"
 #include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-#include "scenes/main_w/tile.h"
+#include "scenes/main_scene/tile.h"
 #include <iostream>
 //-----------------------------------------------------------------------------
 Tile::Tile() : seed_(false), init_(false), terrain_(terrain_t::NONE)

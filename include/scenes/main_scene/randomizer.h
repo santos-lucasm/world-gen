@@ -2,7 +2,7 @@
 #define __RANDOMIZER_H__
 
 #include <random>
-#include "scenes/main_w/tile.h"
+#include "scenes/main_scene/tile.h"
 
 // std::mt19937 rng_;
 
