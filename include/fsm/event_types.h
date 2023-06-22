@@ -6,7 +6,7 @@ enum class Event
     NONE,
 
     // entry windows events
-    START_MAINWINDOW_EXEC,
+    START_MAINSCENE_EXEC,
 
     // main window events
     PAUSE_PROCEDURAL_GENERATION,

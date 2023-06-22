@@ -16,7 +16,7 @@ Game::Game() : is_running_(false)
     }
 
     windows_.push(std::make_shared<MainWindow>(W_WIDTH, W_HEIGHT));
-    game_event_ = Event::START_MAINWINDOW_EXEC;
+    game_event_ = Event::START_MAINSCENE_EXEC;
     CurrentWindow()->Update(game_event_);
 }
 //-----------------------------------------------------------------------------

@@ -1,35 +1,35 @@
-#include "fsm/fsm_main_w.h"
+#include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------
-FsmMainWindow::FsmMainWindow() : state_(MainWindowState::IDLE)
+FsmMainScene::FsmMainScene() : state_(MainSceneState::IDLE)
 {
 
 }
 //-----------------------------------------------------------------------------
-FsmMainWindow::~FsmMainWindow()
+FsmMainScene::~FsmMainScene()
 {
-    state_ = MainWindowState::IDLE;
+    state_ = MainSceneState::IDLE;
 }
 //-----------------------------------------------------------------------------
-void FsmMainWindow::Update(Event e)
+void FsmMainScene::Update(Event e)
 {
     switch(e)
     {
-        case Event::START_MAINWINDOW_EXEC:
-            if(state_ == MainWindowState::IDLE)
+        case Event::START_MAINSCENE_EXEC:
+            if(state_ == MainSceneState::IDLE)
             {
-                state_ = MainWindowState::RUNNING;
+                state_ = MainSceneState::RUNNING;
             }
             break;
         case Event::PAUSE_PROCEDURAL_GENERATION:
-            if(state_ == MainWindowState::RUNNING)
+            if(state_ == MainSceneState::RUNNING)
             {
-                state_ = MainWindowState::PAUSED;
+                state_ = MainSceneState::PAUSED;
             }
             break;
         case Event::RESUME_PROCEDURAL_GENERATION:
-            if(state_ == MainWindowState::PAUSED)
+            if(state_ == MainSceneState::PAUSED)
             {
-                state_ = MainWindowState::RUNNING;
+                state_ = MainSceneState::RUNNING;
             }
             break;
         default:
@@ -37,7 +37,7 @@ void FsmMainWindow::Update(Event e)
     }
 }
 //-----------------------------------------------------------------------------
-MainWindowState FsmMainWindow::State()
+MainSceneState FsmMainScene::State()
 {
     return state_;
 }

@@ -8,7 +8,7 @@
 
 class World;
 class RenderMainWindow;
-class FsmMainWindow;
+class FsmMainScene;
 enum class Event;
 
 class MainWindow : public Window {
@@ -23,7 +23,7 @@ public:
 private:
     std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainWindow> w_render_;
-    std::unique_ptr<FsmMainWindow> fsm_;
+    std::unique_ptr<FsmMainScene> fsm_;
     const unsigned int x_blocks_;
     const unsigned int y_blocks_;
 };
