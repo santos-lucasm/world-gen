@@ -20,18 +20,14 @@ void FsmMainWindow::Update(Event e)
                 state_ = MainWindowState::RUNNING;
             }
             break;
-        case Event::PAUSE:
+        case Event::PAUSE_PROCEDURAL_GENERATION:
             if(state_ == MainWindowState::RUNNING)
             {
                 state_ = MainWindowState::PAUSED;
             }
             break;
-        case Event::RESUME:
+        case Event::RESUME_PROCEDURAL_GENERATION:
             if(state_ == MainWindowState::PAUSED)
-            {
-                state_ = MainWindowState::RESUMING;
-            }
-            else if(state_ == MainWindowState::RESUMING)
             {
                 state_ = MainWindowState::RUNNING;
             }

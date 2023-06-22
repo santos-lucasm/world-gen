@@ -8,9 +8,9 @@ enum class Event
     // entry windows events
     START_MAINWINDOW_EXEC,
 
-    // general
-    PAUSE,
-    RESUME
+    // main window events
+    PAUSE_PROCEDURAL_GENERATION,
+    RESUME_PROCEDURAL_GENERATION
 };
 
 #endif

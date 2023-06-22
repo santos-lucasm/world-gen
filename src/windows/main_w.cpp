@@ -41,7 +41,7 @@ void MainWindow::Update(Event e)
     {
         world_->Pause();
     }
-    else if(st == MainWindowState::RUNNING)
+    else if(st == MainWindowState::RUNNING && e == Event::RESUME_PROCEDURAL_GENERATION)
     {
         world_->Play();
     }

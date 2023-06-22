@@ -38,13 +38,13 @@ void Game::Run()
                 case SDL_KEYDOWN:
                     if( sdlevent_.key.repeat == 0 && sdlevent_.key.keysym.sym == 32 )
                     {
-                        game_event_ = Event::PAUSE;
+                        game_event_ = Event::PAUSE_PROCEDURAL_GENERATION;
                     }
                     break;
                 case SDL_KEYUP:
                     if( sdlevent_.key.keysym.sym == 32 )
                     {
-                        game_event_ = Event::RESUME;
+                        game_event_ = Event::RESUME_PROCEDURAL_GENERATION;
                     }
                     break;
                 default:

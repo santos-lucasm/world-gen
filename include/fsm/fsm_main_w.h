@@ -8,7 +8,6 @@ enum class MainWindowState
     IDLE, // initial state
     RUNNING, // procedural gen running
     PAUSED, // procedural gen paused
-    RESUMING // procedural gen resuming from pause
 };
 
 class FsmMainWindow {
