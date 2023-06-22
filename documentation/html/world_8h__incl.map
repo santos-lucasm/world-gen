@@ -1,0 +1,12 @@
+<map id="include/scenes/main_scene/world.h" name="include/scenes/main_scene/world.h">
+<area shape="rect" id="node1" title=" " alt="" coords="227,5,381,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,85,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="109,95,187,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="211,95,266,121"/>
+<area shape="rect" id="node5" href="$tile_8h.html" title=" " alt="" coords="213,169,400,196"/>
+<area shape="rect" id="node7" href="$randomizer_8h.html" title=" " alt="" coords="342,95,581,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="605,95,669,121"/>
+<area shape="rect" id="node10" title=" " alt="" coords="693,95,760,121"/>
+<area shape="rect" id="node6" href="$terrain__types_8h.html" title=" " alt="" coords="209,244,405,285"/>
+<area shape="rect" id="node8" title=" " alt="" coords="425,169,497,196"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="MainScene" name="MainScene">
+<area shape="rect" id="node1" title=" " alt="" coords="364,107,457,133"/>
+<area shape="rect" id="node2" href="$classScene.html" title="Base abstract class for Scenes Will be used in storage with polymorphism." alt="" coords="94,5,155,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="15,56,235,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,107,244,133"/>
+<area shape="rect" id="node5" title=" " alt="" coords="45,157,204,184"/>
+<area shape="rect" id="node6" title=" " alt="" coords="54,215,195,241"/>
+</map>
