@@ -12,7 +12,7 @@ extern "C" {
 
 class RenderMainScene {
 public:
-    RenderMainScene(SDL_Window* window);
+    RenderMainScene(const unsigned int size_w, const unsigned int size_h);
 
     ~RenderMainScene();
 
@@ -21,6 +21,7 @@ private:
     // maps terrain to a color
     std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> color_map_;
 private:
+    SDL_Window* window_;
     SDL_Texture* texture_;
     SDL_Renderer* sdl_renderer_;
 };
