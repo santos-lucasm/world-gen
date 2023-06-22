@@ -12,7 +12,7 @@ enum class MainSceneState
 };
 
 /// @brief State machine for MainScene
-class FsmMainScene {
+class FsmMainScene : public Fsm {
 public:
     FsmMainScene();
 
