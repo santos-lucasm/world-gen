@@ -15,9 +15,8 @@ Game::Game() : is_running_(false)
         return;
     }
 
-    windows_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
-    game_event_ = Event::START_MAINSCENE_EXEC;
-    CurrentWindow()->Update(game_event_);
+    scenes_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
+    CurrentScene()->Update(Event::START_MAINSCENE_EXEC);
 }
 //-----------------------------------------------------------------------------
 void Game::Run()
@@ -50,18 +49,18 @@ void Game::Run()
                 default:
                     break;
             }
-            CurrentWindow()->Update(game_event_);
+            CurrentScene()->Update(game_event_);
         }
         
-        CurrentWindow()->Draw();
+        CurrentScene()->Draw();
 
         SDL_Delay( 1000 / 60 ); // 60fps
     }
 }
 //-----------------------------------------------------------------------------
-std::shared_ptr<Scene> Game::CurrentWindow()
+std::shared_ptr<Scene> Game::CurrentScene()
 {
-    return windows_.top();
+    return scenes_.top();
 }
 //-----------------------------------------------------------------------------
 bool Game::IsRunning()
