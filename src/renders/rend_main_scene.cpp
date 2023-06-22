@@ -55,7 +55,7 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
             SDL_SetRenderDrawColor(sdl_renderer_,
                 std::get<0>(color_map_[current]),
                 std::get<1>(color_map_[current]),
-                std::get<2>(color_map_[current]), 255);
+                std::get<2>(color_map_[current]), 128);
 
             // update square position
             rect.x = i*16;
