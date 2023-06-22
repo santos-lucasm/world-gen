@@ -26,6 +26,9 @@ int Randomizer::Generate(int ref)
 {
     normal_dist_ = std::normal_distribution<float>(ref, 0.5);
     int gen = std::abs(normal_dist_(rng_));
-    return (gen == 0 || gen > 3) ? 1 : gen;
+    
+    // Normal distribution returned a value out of bounds, randomize again using
+    // uniform distribution
+    return (gen == 0 || gen > 3) ? uniform_dist_(rng_) : gen;
 }
 //-----------------------------------------------------------------------------
