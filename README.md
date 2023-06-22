@@ -1,3 +1,5 @@
+![cmake build status](https://github.com/santos-lucasm/world-gen/actions/workflows/cmake.yml/badge.svg?event=push)
+
 ## TODOs
 
 - InputHandler queues polled events
