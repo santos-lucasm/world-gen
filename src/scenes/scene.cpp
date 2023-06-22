@@ -1,18 +1,18 @@
-#include "windows/window.h"
+#include "scenes/scene.h"
 #include <iostream>
 //-----------------------------------------------------------------------------
-Window::Window(const unsigned int size_w, const unsigned int size_h)
+Scene::Scene(const unsigned int size_w, const unsigned int size_h)
 {
 
 }
 //-----------------------------------------------------------------------------
-Window::~Window()
+Scene::~Scene()
 {
     SDL_DestroyWindow(window_);
     SDL_Quit();
 }
 //-----------------------------------------------------------------------------
-SDL_Window* Window::GetSdlRef()
+SDL_Window* Scene::GetSdlRef()
 {
     return window_;
 }

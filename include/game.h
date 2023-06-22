@@ -3,7 +3,9 @@
 
 #include <memory>
 #include <stack>
-#include "windows/window.h"
+#include "scenes/scene.h"
+
+enum class Event;
 
 class Game {
 public:
@@ -11,13 +13,14 @@ public:
 
     void Run();
 
-    std::shared_ptr<Window> CurrentWindow();
+    std::shared_ptr<Scene> CurrentScene();
 
     bool IsRunning();
 private:
-    std::stack<std::shared_ptr<Window>> windows_;
+    std::stack<std::shared_ptr<Scene>> scenes_;
     bool is_running_; //TODO: change this to atomic
-    SDL_Event event_;
+    SDL_Event sdlevent_;
+    Event game_event_;
 };
 
 #endif

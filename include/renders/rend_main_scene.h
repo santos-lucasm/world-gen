@@ -8,13 +8,13 @@ extern "C" {
 
 #include <memory>
 #include <map>
-#include "windows/main_w.h"
+#include "scenes/main_scene.h"
 
-class RenderMainWindow {
+class RenderMainScene {
 public:
-    RenderMainWindow(SDL_Window* window);
+    RenderMainScene(SDL_Window* window);
 
-    ~RenderMainWindow();
+    ~RenderMainScene();
 
     void Render(std::shared_ptr<World> world);
 private:

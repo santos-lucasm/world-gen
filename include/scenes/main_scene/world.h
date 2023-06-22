@@ -4,8 +4,10 @@
 #include <iostream>
 #include <memory>
 #include <tuple>
-#include "windows/main_w/tile.h"
-#include "windows/main_w/randomizer.h"
+#include "scenes/main_scene/tile.h"
+#include "scenes/main_scene/randomizer.h"
+#include <mutex>
+#include <atomic>
 
 class World
 {
@@ -20,12 +22,18 @@ public:
     /// @brief Deallocates all memmory from heap
     ~World();
 
-    void ProceduralGeneration();
+    void ProceduralGeneration(const unsigned int x, const unsigned int y);
 
     /// @brief Retrieve terrain type of a specific Tile
     terrain_t GetTerrain(const unsigned int x, const unsigned int y);
 
     std::tuple<const unsigned int, const unsigned int> GetWorldSize();
+
+    /// @brief Pause ProceduralGeneration if it's running
+    void Pause();
+
+    /// @brief Play ProceduralGeneration again if it's paused
+    void Play();
 
 private:
 
@@ -38,7 +46,7 @@ private:
     /// @param x onedimensional position in matrix tile 
     /// @param y onedimensional position in matrix tile
     /// @return 
-    bool Generate(const unsigned int x, const unsigned int y);
+    bool Generate(const unsigned int x, const unsigned int y, int ref);
 
     void SetWorldSeed(const unsigned int x, const unsigned int y);
 
@@ -48,6 +56,8 @@ private:
 
     std::unique_ptr<std::unique_ptr<Tile[]>[]> tiles_;
     std::unique_ptr<Randomizer> rand_;
+    std::mutex tiles_guard_;
+    std::atomic<bool> is_running_;
 };
 
 #endif
