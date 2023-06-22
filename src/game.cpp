@@ -1,6 +1,6 @@
 #include <thread>
 #include "game.h"
-#include "windows/main_w.h"
+#include "windows/main_scene.h"
 #include "fsm/event_types.h"
 #include <iostream>
 //-----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ Game::Game() : is_running_(false)
         return;
     }
 
-    windows_.push(std::make_shared<MainWindow>(W_WIDTH, W_HEIGHT));
+    windows_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
     game_event_ = Event::START_MAINSCENE_EXEC;
     CurrentWindow()->Update(game_event_);
 }

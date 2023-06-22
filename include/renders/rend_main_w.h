@@ -8,7 +8,7 @@ extern "C" {
 
 #include <memory>
 #include <map>
-#include "windows/main_w.h"
+#include "windows/main_scene.h"
 
 class RenderMainWindow {
 public:

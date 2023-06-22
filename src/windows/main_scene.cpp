@@ -1,9 +1,9 @@
-#include "windows/main_w.h"
+#include "windows/main_scene.h"
 #include "windows/main_w/world.h"
 #include "renders/rend_main_w.h"
 #include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------
-MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
+MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
     : Window(size_w, size_h), x_blocks_(size_w/16), y_blocks_(size_h/16)
 {
     window_ = SDL_CreateWindow( "world-gen",
@@ -27,12 +27,12 @@ MainWindow::MainWindow(const unsigned int size_w, const unsigned int size_h)
     seed2.detach();
 }
 //-----------------------------------------------------------------------------
-MainWindow::~MainWindow()
+MainScene::~MainScene()
 {
 
 }
 //-----------------------------------------------------------------------------
-void MainWindow::Update(Event e)
+void MainScene::Update(Event e)
 {
     fsm_->Update(e);
     auto st = fsm_->State();
@@ -47,7 +47,7 @@ void MainWindow::Update(Event e)
     }
 }
 //-----------------------------------------------------------------------------
-void MainWindow::Draw()
+void MainScene::Draw()
 {
     w_render_->Render(world_);
 }
