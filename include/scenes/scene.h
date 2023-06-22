@@ -13,11 +13,11 @@ enum class Event;
  * 
  * Will handle mouse scroll button and display world terrain upon generation
  */
-class Window {
+class Scene {
 public:
-    Window(const unsigned int size_w, const unsigned int size_h);
+    Scene(const unsigned int size_w, const unsigned int size_h);
 
-    ~Window();
+    ~Scene();
 
     virtual void Update(Event) = 0;
 

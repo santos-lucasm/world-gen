@@ -1,10 +1,10 @@
-#include "windows/main_scene.h"
-#include "windows/main_w/world.h"
+#include "scenes/main_scene.h"
+#include "scenes/main_w/world.h"
 #include "renders/rend_main_w.h"
 #include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------
 MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
-    : Window(size_w, size_h), x_blocks_(size_w/16), y_blocks_(size_h/16)
+    : Scene(size_w, size_h), x_blocks_(size_w/16), y_blocks_(size_h/16)
 {
     window_ = SDL_CreateWindow( "world-gen",
                                 SDL_WINDOWPOS_CENTERED,

@@ -1,4 +1,4 @@
-#include "windows/main_w/world.h"
+#include "scenes/main_w/world.h"
 #include "renders/rend_main_w.h"
 
 RenderMainWindow::RenderMainWindow(SDL_Window* window)

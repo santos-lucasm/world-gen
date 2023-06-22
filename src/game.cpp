@@ -1,6 +1,6 @@
 #include <thread>
 #include "game.h"
-#include "windows/main_scene.h"
+#include "scenes/main_scene.h"
 #include "fsm/event_types.h"
 #include <iostream>
 //-----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ void Game::Run()
     }
 }
 //-----------------------------------------------------------------------------
-std::shared_ptr<Window> Game::CurrentWindow()
+std::shared_ptr<Scene> Game::CurrentWindow()
 {
     return windows_.top();
 }

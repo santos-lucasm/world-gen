@@ -4,8 +4,8 @@
 #include <iostream>
 #include <memory>
 #include <tuple>
-#include "windows/main_w/tile.h"
-#include "windows/main_w/randomizer.h"
+#include "scenes/main_w/tile.h"
+#include "scenes/main_w/randomizer.h"
 #include <mutex>
 #include <atomic>
 

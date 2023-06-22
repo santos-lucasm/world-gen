@@ -1,7 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-#include "windows/main_w/terrain_types.h"
+#include "scenes/main_w/terrain_types.h"
 
 class Tile
 {

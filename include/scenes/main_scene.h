@@ -3,14 +3,14 @@
 
 #include <memory>
 #include <thread>
-#include "windows/window.h"
+#include "scenes/scene.h"
 
 class World;
 class RenderMainWindow;
 class FsmMainScene;
 enum class Event;
 
-class MainScene : public Window {
+class MainScene : public Scene {
 public:
     /// @brief Create window, init scene helpers and start procedural
     /// generation threads
