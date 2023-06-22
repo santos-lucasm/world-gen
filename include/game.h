@@ -11,6 +11,8 @@ class Game {
 public:
     Game();
 
+    ~Game();
+
     void Run();
 
     std::shared_ptr<Scene> CurrentScene();

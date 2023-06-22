@@ -19,6 +19,15 @@ Game::Game() : is_running_(false)
     CurrentScene()->Update(Event::START_MAINSCENE_EXEC);
 }
 //-----------------------------------------------------------------------------
+Game::~Game()
+{
+    while(!scenes_.empty())
+    {
+        scenes_.pop();
+    }
+    SDL_Quit();
+}
+//-----------------------------------------------------------------------------
 void Game::Run()
 {
     is_running_ = true;
@@ -47,6 +56,7 @@ void Game::Run()
                     }
                     break;
                 default:
+                    game_event_ = Event::NONE;
                     break;
             }
             CurrentScene()->Update(game_event_);
