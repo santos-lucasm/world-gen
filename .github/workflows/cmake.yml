@@ -26,7 +26,11 @@ jobs:
         sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
         sudo apt-get update -y -qq
         sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev
-        sudo cp .github/workflows/sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/
+        ls /usr/lib/x86_64-linux-gnu/
+        sudo mkdir /usr/lib/x86_64-linux-gnu/cmake
+        ls /usr/lib/x86_64-linux-gnu/cmake/
+        sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_image
+        sudo cp .github/workflows/sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
         sudo cat /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
 
     - name: Configure CMake
