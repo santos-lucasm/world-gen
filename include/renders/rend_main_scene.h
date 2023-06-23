@@ -6,9 +6,7 @@ extern "C" {
     #include <SDL2/SDL_image.h>
 }
 
-#include <memory>
 #include <map>
-#include "scenes/main_scene.h"
 
 class RenderMainScene {
 public:

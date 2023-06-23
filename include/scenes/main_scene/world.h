@@ -1,13 +1,13 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
 
-#include <iostream>
 #include <memory>
 #include <tuple>
-#include "scenes/main_scene/tile.h"
-#include "scenes/main_scene/randomizer.h"
 #include <mutex>
 #include <atomic>
+#include "scenes/main_scene/tile.h"
+
+class Randomizer;
 
 class World
 {

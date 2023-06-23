@@ -1,11 +1,6 @@
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
 
-extern "C" {
-    #include <SDL2/SDL.h>
-    #include <SDL2/SDL_image.h>
-}
-
 enum class Event;
 
 /// @brief Base abstract class for Scenes

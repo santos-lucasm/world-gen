@@ -1,4 +1,3 @@
-#include <thread>
 #include "game.h"
 #include "scenes/main_scene.h"
 #include "fsm/event_types.h"
