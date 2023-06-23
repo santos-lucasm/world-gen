@@ -1,5 +1,4 @@
 #include "scenes/main_scene/randomizer.h"
-#include <iostream>
 #include <cmath>
 //-----------------------------------------------------------------------------
 Randomizer::Randomizer(const unsigned int max_value)

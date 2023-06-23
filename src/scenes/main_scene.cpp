@@ -1,7 +1,9 @@
+#include <thread>
 #include "scenes/main_scene.h"
 #include "scenes/main_scene/world.h"
 #include "renders/rend_main_scene.h"
 #include "fsm/fsm_main_scene.h"
+#include "fsm/event_types.h"
 //-----------------------------------------------------------------------------
 MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
     : Scene(), x_blocks_(size_w/16), y_blocks_(size_h/16)

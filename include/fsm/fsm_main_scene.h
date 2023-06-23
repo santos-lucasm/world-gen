@@ -3,6 +3,8 @@
 
 #include "fsm/fsm.h"
 
+enum class Event;
+
 /// @brief MainScene states
 enum class MainSceneState
 {

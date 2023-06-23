@@ -2,7 +2,6 @@
 #define __MAIN_W_H__
 
 #include <memory>
-#include <thread>
 #include "scenes/scene.h"
 
 class World;

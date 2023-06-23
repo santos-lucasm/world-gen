@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <stack>
-// #include "scenes/scene.h"
 
 extern "C" {
     #include <SDL2/SDL.h>

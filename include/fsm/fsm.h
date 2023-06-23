@@ -1,7 +1,7 @@
 #ifndef __FSM_H__
 #define __FSM_H__
 
-#include "fsm/event_types.h"
+enum class Event;
 
 class Fsm {
 public:

@@ -1,7 +1,6 @@
 #include "game.h"
 #include "scenes/main_scene.h"
 #include "fsm/event_types.h"
-#include <iostream>
 //-----------------------------------------------------------------------------
 constexpr unsigned int W_WIDTH = 1024;
 constexpr unsigned int W_HEIGHT = 768;
