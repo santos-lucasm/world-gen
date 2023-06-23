@@ -1,4 +1,0 @@
-<map id="Scene" name="Scene">
-<area shape="rect" id="node1" title="Base abstract class for Scenes Will be used in storage with polymorphism." alt="" coords="21,5,83,32"/>
-<area shape="rect" id="node2" href="$classMainScene.html" title=" " alt="" coords="5,80,99,107"/>
-</map>
