@@ -1,12 +1,21 @@
 #include "scenes/main_scene/world.h"
 #include "renders/rend_main_scene.h"
 
-RenderMainScene::RenderMainScene(SDL_Window* window)
+RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int size_h)
     : sdl_renderer_(NULL)
 {
+    window_ = SDL_CreateWindow( "world-gen",
+                                SDL_WINDOWPOS_CENTERED,
+                                SDL_WINDOWPOS_CENTERED,
+                                size_w, size_h, 0);
+    if(!window_)
+    {
+        //TODO: handle err
+    }
+
     // triggers the program that controls your graphics hardware and sets flags
     // creates a renderer to render our images
-    sdl_renderer_ = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    sdl_renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
     if(!sdl_renderer_)
     {
         //TODO: handle err
@@ -24,6 +33,7 @@ RenderMainScene::RenderMainScene(SDL_Window* window)
 RenderMainScene::~RenderMainScene()
 {
     SDL_DestroyRenderer(sdl_renderer_);
+    SDL_DestroyWindow(window_);
 }
 
 void RenderMainScene::Render(std::shared_ptr<World> world)
@@ -55,7 +65,7 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
             SDL_SetRenderDrawColor(sdl_renderer_,
                 std::get<0>(color_map_[current]),
                 std::get<1>(color_map_[current]),
-                std::get<2>(color_map_[current]), 255);
+                std::get<2>(color_map_[current]), 128);
 
             // update square position
             rect.x = i*16;

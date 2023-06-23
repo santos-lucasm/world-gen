@@ -7,8 +7,7 @@ World::World(const unsigned int size_x, const unsigned int size_y)
 {
     if( !IsValidSize(size_x_) || !IsValidSize(size_y_) )
     {
-        std::cout << "ERROR: Invalid world size" << std::endl;
-        exit(1);
+        //TODO: handle error
     }
 
     tiles_ = std::make_unique< std::unique_ptr<Tile[]> []>(size_y_);

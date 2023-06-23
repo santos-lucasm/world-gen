@@ -1,4 +1,3 @@
-#include <thread>
 #include "game.h"
 #include "scenes/main_scene.h"
 #include "fsm/event_types.h"
@@ -17,6 +16,15 @@ Game::Game() : is_running_(false)
 
     scenes_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
     CurrentScene()->Update(Event::START_MAINSCENE_EXEC);
+}
+//-----------------------------------------------------------------------------
+Game::~Game()
+{
+    while(!scenes_.empty())
+    {
+        scenes_.pop();
+    }
+    SDL_Quit();
 }
 //-----------------------------------------------------------------------------
 void Game::Run()
@@ -47,6 +55,7 @@ void Game::Run()
                     }
                     break;
                 default:
+                    game_event_ = Event::NONE;
                     break;
             }
             CurrentScene()->Update(game_event_);

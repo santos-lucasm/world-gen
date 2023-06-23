@@ -3,13 +3,21 @@
 
 #include <memory>
 #include <stack>
-#include "scenes/scene.h"
+// #include "scenes/scene.h"
 
+extern "C" {
+    #include <SDL2/SDL.h>
+    #include <SDL2/SDL_image.h>
+}
+
+class Scene;
 enum class Event;
 
 class Game {
 public:
     Game();
+
+    ~Game();
 
     void Run();
 

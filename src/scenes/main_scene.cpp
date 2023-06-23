@@ -4,27 +4,20 @@
 #include "fsm/fsm_main_scene.h"
 //-----------------------------------------------------------------------------
 MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
-    : Scene(size_w, size_h), x_blocks_(size_w/16), y_blocks_(size_h/16)
+    : Scene(), x_blocks_(size_w/16), y_blocks_(size_h/16)
 {
-    window_ = SDL_CreateWindow( "world-gen",
-                                SDL_WINDOWPOS_CENTERED,
-                                SDL_WINDOWPOS_CENTERED,
-                                size_w, size_h, 0);
-    if(!window_)
-    {
-        //TODO: handle err
-    }
-
-    w_render_ = std::make_unique<RenderMainScene>(GetSdlRef());
+    w_render_ = std::make_unique<RenderMainScene>(size_w, size_h);
     fsm_ = std::make_unique<FsmMainScene>();
 
     world_ = std::make_shared<World>(x_blocks_, y_blocks_);
 
     auto seed1 = std::thread(&World::ProceduralGeneration, world_.get(), 0, 0);
-    auto seed2 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, y_blocks_-1);
+    auto seed2 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_-1, 0);
+    auto seed3 = std::thread(&World::ProceduralGeneration, world_.get(), x_blocks_/2, y_blocks_-1);
 
     seed1.detach();
     seed2.detach();
+    seed3.detach();
 }
 //-----------------------------------------------------------------------------
 MainScene::~MainScene()

@@ -2,9 +2,6 @@
 #define __RANDOMIZER_H__
 
 #include <random>
-#include "scenes/main_scene/tile.h"
-
-// std::mt19937 rng_;
 
 class Randomizer {
 public:
