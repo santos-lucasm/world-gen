@@ -3,13 +3,15 @@
 
 #include <memory>
 #include "scenes/scene.h"
+#include "events/event_listener.h"
 
 class World;
 class RenderMainScene;
 class FsmMainScene;
 enum class Event;
 
-class MainScene : public Scene {
+class MainScene : public Scene,
+                  public EventListener {
 public:
     /// @brief Create window, init scene helpers and start procedural
     /// generation threads
@@ -20,12 +22,10 @@ public:
     /// @brief Default to call base destructor
     ~MainScene();
 
-    /// @brief Update scene state according to received event
-    /// @param e Received event
-    void Update(Event e) override;
-
     /// @brief Call scene render to draw internal objects
     void Draw() override;
+
+    void OnPause(bool entered_pause_mode) override;
 private:
     std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainScene> w_render_;

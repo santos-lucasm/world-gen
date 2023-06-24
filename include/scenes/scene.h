@@ -11,10 +11,6 @@ public:
 
     ~Scene();
 
-    /// @brief Update based in an event
-    /// @param e Received event
-    virtual void Update(Event e) = 0;
-
     /// @brief Used to render the scene
     virtual void Draw() = 0;
 };
