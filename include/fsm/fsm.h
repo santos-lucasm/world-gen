@@ -9,7 +9,7 @@ public:
 
     ~Fsm() {};
 
-    virtual void Update(Event e) = 0;
+    virtual void Next(Event e) = 0;
 };
 
 #endif

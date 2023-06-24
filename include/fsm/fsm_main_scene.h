@@ -20,9 +20,11 @@ public:
 
     ~FsmMainScene();
 
+    void Set(MainSceneState state);
+
     /// @brief Update fsm according the received event
     /// @param e Event received
-    void Update(Event e);
+    void Next(Event e);
 
     /// @brief Get currente fsm state
     /// @return Current state
