@@ -2,7 +2,6 @@
 #include "scenes/main_scene.h"
 #include "scenes/main_scene/world.h"
 #include "renders/rend_main_scene.h"
-#include "fsm/fsm_main_scene.h"
 #include "events/event_manager.h"
 //-----------------------------------------------------------------------------
 MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
@@ -10,8 +9,6 @@ MainScene::MainScene(const unsigned int size_w, const unsigned int size_h)
 {
     w_render_ = std::make_unique<RenderMainScene>(size_w, size_h);
     world_ = std::make_shared<World>(x_blocks_, y_blocks_);
-    fsm_ = std::make_unique<FsmMainScene>();
-    fsm_->Set(MainSceneState::RUNNING);
 
     EventManager::Instance()->Subscribe(Event::PAUSE_TRIGGERED, this);
 
@@ -37,8 +34,6 @@ void MainScene::Draw()
 //-----------------------------------------------------------------------------
 void MainScene::OnPause(bool entered_pause_mode)
 {
-    fsm_->Next(Event::PAUSE_TRIGGERED);
-
     if(entered_pause_mode)
     {
         world_->Pause();

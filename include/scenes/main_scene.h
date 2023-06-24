@@ -7,7 +7,6 @@
 
 class World;
 class RenderMainScene;
-class FsmMainScene;
 enum class Event;
 
 class MainScene : public Scene,
@@ -29,7 +28,6 @@ public:
 private:
     std::shared_ptr<World> world_;
     std::unique_ptr<RenderMainScene> w_render_;
-    std::unique_ptr<FsmMainScene> fsm_;
     const unsigned int x_blocks_;
     const unsigned int y_blocks_;
 };
