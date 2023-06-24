@@ -1,10 +1,15 @@
 ![cmake build status](https://github.com/santos-lucasm/world-gen/actions/workflows/cmake.yml/badge.svg?event=push)
 
-## TODOs
+## CODE PATTERNS
 
-- InputHandler queues polled events
-- Game FSM handle inputs queued, change current scene accordingly
-- Send window from Scenes to Renderer
+* Event driven
+Game class keeps the main loop, polling and handling events, updating and rendering scenes. 
+
+* Observer pattern
+EventManager acts like the notifier. Classes that inherit from EventListener can subscribe to specific events.
+
+* Singleton pattern
+EventManager is also a singleton, so different code sections can easily subscribe as event listeners.
 
 ## Dependencies
 
