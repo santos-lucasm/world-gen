@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <memory>
 #include "event_listener.h"
 #include "events/event_types.h"
 
@@ -14,10 +15,12 @@
 class EventManager
 {
 public:
+    static std::shared_ptr<EventManager> Instance();
     void Subscribe(Event e, EventListener* listener);
     void Unsubscribe(Event e, EventListener* listener);
     void NotifyPauseTriggered(Event e, bool entered_pause_mode);
 private:
+    static std::shared_ptr<EventManager> instance_;
     std::vector<EventListener*> pause_triggered_listeners_;
 };
 

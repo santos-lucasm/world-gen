@@ -1,5 +1,16 @@
 #include "events/event_manager.h"
 //-----------------------------------------------------------------------------
+std::shared_ptr<EventManager> EventManager::instance_ = nullptr;
+//-----------------------------------------------------------------------------
+std::shared_ptr<EventManager> EventManager::Instance()
+{
+    if(instance_ == nullptr)
+    {
+        instance_ = std::make_shared<EventManager>();
+    }
+    return instance_;
+}
+//-----------------------------------------------------------------------------
 void EventManager::Subscribe(Event e, EventListener* listener)
 {
     // TODO: map events to vector
