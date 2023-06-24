@@ -31,30 +31,9 @@ void Game::Run()
 
     while(IsRunning())
     {
-        //TODO: this loop will cover big events and commands such as "CLOSE"
-        //other events should be passed to be handled by the current window
         while (SDL_PollEvent(&sdlevent_))
         {
-            switch(sdlevent_.type)
-            {
-                case SDL_QUIT:
-                    is_running_ = false;
-                    break;
-                case SDL_KEYDOWN:
-                    if( sdlevent_.key.repeat == 0 && sdlevent_.key.keysym.sym == 32 )
-                    {
-                        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED, true);
-                    }
-                    break;
-                case SDL_KEYUP:
-                    if( sdlevent_.key.repeat == 0 && sdlevent_.key.keysym.sym == 32 )
-                    {
-                        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED, false);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            HandleEvents();
         }
         
         CurrentScene()->Draw();
@@ -70,5 +49,34 @@ std::shared_ptr<Scene> Game::CurrentScene()
 bool Game::IsRunning()
 {
     return is_running_;
+}
+//-----------------------------------------------------------------------------
+void Game::HandleEvents()
+{
+    static bool pause_button_already_entered_ = false;
+
+    if(sdlevent_.type == SDL_QUIT)
+    {
+        is_running_ = false;
+    }
+    else if(IsKeyPressed(SDLK_ESCAPE))
+    {
+        pause_button_already_entered_ = !pause_button_already_entered_;
+        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED, pause_button_already_entered_);
+    }
+    else if(IsKeyPressed(SDLK_SPACE))
+    {
+        
+    }
+}
+//-----------------------------------------------------------------------------
+bool Game::IsKeyPressed(SDL_Keycode key)
+{
+    if(sdlevent_.type == SDL_KEYDOWN && sdlevent_.key.repeat == 0
+        && sdlevent_.key.keysym.sym == key)
+    {
+        return true;
+    }
+    return false;
 }
 //-----------------------------------------------------------------------------
