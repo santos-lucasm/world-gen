@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <stack>
-#include "events/event_manager.h"
 
 extern "C" {
     #include <SDL2/SDL.h>
@@ -26,7 +25,6 @@ public:
     bool IsRunning();
 private:
     std::stack<std::shared_ptr<Scene>> scenes_;
-    std::unique_ptr<EventManager> ev_manager_;
     bool is_running_; //TODO: change this to atomic
     SDL_Event sdlevent_;
 };
