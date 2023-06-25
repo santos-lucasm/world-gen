@@ -33,3 +33,9 @@ set(SDL2_IMAGE_EXEC_PREFIX "/usr")
 set(SDL2_IMAGE_INCLUDE_DIRS "${prefix}/include/SDL2_image")
 set(SDL2_IMAGE_LIBRARIES "-lSDL2_image")
 ```
+
+## Special thanks
+
+- [SonDanielson](https://sondanielson.itch.io/gameboy-simple-rpg-tileset) for the amazing tilesheet.
+
+- [Abaddon](https://caffinate.itch.io/abaddon) for the amazing text fonts.
