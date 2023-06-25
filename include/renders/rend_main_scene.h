@@ -1,5 +1,5 @@
-#ifndef __REND_MAIN_W_H__
-#define __REND_MAIN_W_H__
+#ifndef __REND_MAIN_SCENE_H__
+#define __REND_MAIN_SCENE_H__
 
 extern "C" {
     #include <SDL2/SDL.h>

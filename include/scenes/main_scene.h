@@ -1,5 +1,5 @@
-#ifndef __MAIN_W_H__
-#define __MAIN_W_H__
+#ifndef __MAIN_SCENE_H__
+#define __MAIN_SCENE_H__
 
 #include <memory>
 #include "scenes/scene.h"
@@ -7,7 +7,6 @@
 
 class World;
 class RenderMainScene;
-enum class Event;
 
 class MainScene : public Scene,
                   public EventListener {
