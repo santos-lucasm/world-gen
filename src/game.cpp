@@ -8,9 +8,13 @@ constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
+    //TODO: handle err
     if (SDL_Init(SDL_INIT_EVENTS) != 0)
     {
-        //TODO: handle err
+        return;
+    }
+    if (!IMG_Init(IMG_INIT_PNG))
+    {
         return;
     }
     scenes_.push(std::make_shared<TitleScene>(W_WIDTH, W_HEIGHT));
@@ -60,17 +64,22 @@ void Game::HandleEvents()
     {
         is_running_ = false;
     }
-    else if(sdlevent_.type == SDL_WINDOWEVENT && sdlevent_.window.event == SDL_WINDOWEVENT_CLOSE)
+    else if(sdlevent_.type == SDL_WINDOWEVENT &&
+            sdlevent_.window.event == SDL_WINDOWEVENT_CLOSE)
     {
-        // TODO: for multiples windows the ev type is SDL_WINDOWEVENT with internal SDL_WINDOWEVENT_CLOSE
-        // handle using the window ID
-        // FIXME: scenes_.pop() seg fault here because of CurrentScene()->Draw() later in the loop
+        // TODO: for multiples windows the ev type is SDL_WINDOWEVENT with
+        // internal SDL_WINDOWEVENT_CLOSE handle using the window ID
+        // FIXME: scenes_.pop() seg fault here because of
+        // CurrentScene()->Draw() later in the loop
         is_running_ = false;
     }
     else if(IsKeyPressed(SDLK_ESCAPE))
     {
+        // FIXME: pressing ESC before going to main scene miss the first
+        // PAUSE_TRIGGERED and the next pressing goes out of pause instead
         pause_button_already_entered_ = !pause_button_already_entered_;
-        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED, pause_button_already_entered_);
+        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED,
+            pause_button_already_entered_);
     }
     else if(IsKeyPressed(SDLK_SPACE))
     {
