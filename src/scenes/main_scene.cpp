@@ -41,6 +41,8 @@ void MainScene::OnPause(bool entered_pause_mode)
     else
     {
         world_->Play();
+        // Unsubscribe testing
+        EventManager::Instance()->Unsubscribe(Event::PAUSE_TRIGGERED, this);
     }
 }
 //-----------------------------------------------------------------------------

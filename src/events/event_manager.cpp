@@ -1,6 +1,13 @@
 #include "events/event_manager.h"
+#include <iostream>
+//TODO: log debug this file
 //-----------------------------------------------------------------------------
 std::shared_ptr<EventManager> EventManager::instance_ = nullptr;
+std::map<Event, std::shared_ptr< std::vector<EventListener*> >>
+    EventManager::listeners_ =
+{
+    {Event::PAUSE_TRIGGERED, std::make_shared<std::vector<EventListener*>>()}
+};
 //-----------------------------------------------------------------------------
 std::shared_ptr<EventManager> EventManager::Instance()
 {
@@ -13,44 +20,57 @@ std::shared_ptr<EventManager> EventManager::Instance()
 //-----------------------------------------------------------------------------
 void EventManager::Subscribe(Event e, EventListener* listener)
 {
-    // TODO: map events to vector
-    switch(e)
+    auto [subscribed, pos] = AlreadySubscribed(e, listener);
+    if(!subscribed)
     {
-        case Event::PAUSE_TRIGGERED:
-            pause_triggered_listeners_.push_back(listener);
-            break;
-        default:
-            break;
-
+        EventCurrentListeners(e)->push_back(listener);
+        std::cout << listener->Id() << " subscribed to event "
+            << static_cast<int>(e) << std::endl;
     }
 }
 //-----------------------------------------------------------------------------
 void EventManager::Unsubscribe(Event e, EventListener* listener)
 {
-    // TODO: map events to vector
-    switch(e)
+    auto [subscribed, pos] = AlreadySubscribed(e, listener);
+    if(subscribed)
     {
-        case Event::PAUSE_TRIGGERED:
-            for(auto it = pause_triggered_listeners_.begin();
-                it != pause_triggered_listeners_.end(); it++)
-            {
-                if((*it)->Id() == listener->Id())
-                {
-                    pause_triggered_listeners_.erase(it);
-                    break;
-                }
-            }
-        default:
-            break;
+        auto listeners = EventCurrentListeners(e);
+        listeners->erase(pos);
 
+        std::cout << listener->Id() << " unsubscribed from event "
+            << static_cast<int>(e) << std::endl;
     }
 }
 //-----------------------------------------------------------------------------
 void EventManager::NotifyPauseTriggered(Event e, bool entered_pause_mode)
 {
-    for(auto listener : pause_triggered_listeners_)
+    auto listeners = EventCurrentListeners(e);
+    for(auto listener : *listeners)
     {
+        std::cout << listener->Id() << " notified!" << std::endl;;
+        /// TODO: push this function into a notifications queue to be consumed
         listener->OnPause(entered_pause_mode);
     }
+}
+//-----------------------------------------------------------------------------
+std::tuple<bool, std::vector<EventListener*>::iterator>
+    EventManager::AlreadySubscribed(Event e, EventListener* listener)
+{
+    auto l = EventCurrentListeners(e);
+    for(auto it = l->begin(); it != l->end(); it++)
+    {
+        if((*it)->Id() == listener->Id())
+        {
+            return {true, it};
+        }
+    }
+    return {false, l->end()};
+}
+//-----------------------------------------------------------------------------
+std::shared_ptr<std::vector<EventListener*>>
+    EventManager::EventCurrentListeners(Event e)
+{
+    //TODO: handle unknown event
+    return instance_->listeners_[e];
 }
 //-----------------------------------------------------------------------------
