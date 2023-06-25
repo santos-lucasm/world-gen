@@ -11,31 +11,9 @@ std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>>
         };
 //-----------------------------------------------------------------------------
 RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int size_h)
-    : sdl_renderer_(NULL)
+    : IRenderer(size_w, size_h)
 {
-    window_ = SDL_CreateWindow( "world-gen",
-                                SDL_WINDOWPOS_CENTERED,
-                                SDL_WINDOWPOS_CENTERED,
-                                size_w, size_h, 0);
-    if(!window_)
-    {
-        //TODO: handle err
-    }
 
-    // triggers the program that controls your graphics hardware and sets flags
-    // creates a renderer to render our images
-    sdl_renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
-    if(!sdl_renderer_)
-    {
-        //TODO: handle err
-        return;
-    }
-}
-//-----------------------------------------------------------------------------
-RenderMainScene::~RenderMainScene()
-{
-    SDL_DestroyRenderer(sdl_renderer_);
-    SDL_DestroyWindow(window_);
 }
 //-----------------------------------------------------------------------------
 void RenderMainScene::Render(std::shared_ptr<World> world)
@@ -57,7 +35,7 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
 
             if(current == terrain_t::NONE) continue;
 
-            SDL_SetRenderDrawColor(sdl_renderer_,
+            SDL_SetRenderDrawColor(renderer_,
                 std::get<0>(color_map_[current]),
                 std::get<1>(color_map_[current]),
                 std::get<2>(color_map_[current]), 128);
@@ -66,16 +44,16 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
             rect.x = i*16;
             rect.y = j*16;
 
-            SDL_RenderFillRect(sdl_renderer_, &rect);
+            SDL_RenderFillRect(renderer_, &rect);
         }
     }
     // Render the rect to the screen
-    SDL_RenderPresent(sdl_renderer_);
+    SDL_RenderPresent(renderer_);
 }
 //-----------------------------------------------------------------------------
 void RenderMainScene::ClearWindow()
 {
-    SDL_SetRenderDrawColor(sdl_renderer_, 0, 0, 0, 0);
-    SDL_RenderClear(sdl_renderer_);
+    SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0);
+    SDL_RenderClear(renderer_);
 }
 //-----------------------------------------------------------------------------
