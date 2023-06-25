@@ -1,23 +1,23 @@
-#include "scenes/main_scene/randomizer.h"
+#include "utils/randomizer.h"
 #include <cmath>
+//-----------------------------------------------------------------------------
+siv::PerlinNoise Randomizer::perlin_dist_ = siv::PerlinNoise(
+    std::random_device{});
 //-----------------------------------------------------------------------------
 Randomizer::Randomizer(const unsigned int max_value)
 {
+    // configure seed
     std::random_device dev;
     rng_ = std::mt19937( dev() );
-    
+
     uniform_dist_ = std::uniform_int_distribution<std::mt19937::result_type>
         (1, max_value);
+
+    perlin_dist_.reseed(rng_);
 }
 //-----------------------------------------------------------------------------
 int Randomizer::Generate()
 {
-    // receive 3 weights: 0.25 per adjacent tile of a specific terrain
-    // Ex: If 3 mountains are around this tile, roll the normal distribution
-    // around 1 with 0.2 of std deviation. If the number is around up to 0.75
-    // from 1 satifies this equation: |x - 1| < 0.75, the same terrain is used
-    // auto gen = std::abs(static_cast<float>(normal_dist_(rng_) - 1));
-
     return uniform_dist_(rng_);
 }
 //-----------------------------------------------------------------------------
@@ -29,5 +29,10 @@ int Randomizer::Generate(int ref)
     // Normal distribution returned a value out of bounds, randomize again using
     // uniform distribution
     return (gen == 0 || gen > 3) ? uniform_dist_(rng_) : gen;
+}
+//-----------------------------------------------------------------------------
+double Randomizer::PerlinNoise(int x, int y)
+{
+    return perlin_dist_.octave2D_01(x * 0.1, y * 0.1, 4);
 }
 //-----------------------------------------------------------------------------
