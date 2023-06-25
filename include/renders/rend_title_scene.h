@@ -15,6 +15,10 @@ public:
 private:
     /// @brief Clears whole scene setting it to black color
     void ClearWindow();
+
+    /// @brief rectangle that covers texture inside the tilesheet
+    SDL_Rect title_position_;
+    SDL_Rect texture_position_;
 };
 
 #endif
