@@ -1,5 +1,6 @@
 #include "game.h"
 #include "scenes/main_scene.h"
+#include "scenes/title_scene.h"
 #include "events/event_manager.h"
 //-----------------------------------------------------------------------------
 constexpr unsigned int W_WIDTH = 1024;
@@ -12,8 +13,7 @@ Game::Game() : is_running_(false)
         //TODO: handle err
         return;
     }
-
-    scenes_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
+    scenes_.push(std::make_shared<TitleScene>(W_WIDTH, W_HEIGHT));
 }
 //-----------------------------------------------------------------------------
 Game::~Game()
@@ -53,10 +53,18 @@ bool Game::IsRunning()
 //-----------------------------------------------------------------------------
 void Game::HandleEvents()
 {
+    //https://stackoverflow.com/questions/24727184/zooming-an-image-while-keeping-it-centered-in-sdl2
     static bool pause_button_already_entered_ = false;
 
     if(sdlevent_.type == SDL_QUIT)
     {
+        is_running_ = false;
+    }
+    else if(sdlevent_.type == SDL_WINDOWEVENT && sdlevent_.window.event == SDL_WINDOWEVENT_CLOSE)
+    {
+        // TODO: for multiples windows the ev type is SDL_WINDOWEVENT with internal SDL_WINDOWEVENT_CLOSE
+        // handle using the window ID
+        // FIXME: scenes_.pop() seg fault here because of CurrentScene()->Draw() later in the loop
         is_running_ = false;
     }
     else if(IsKeyPressed(SDLK_ESCAPE))
@@ -66,7 +74,7 @@ void Game::HandleEvents()
     }
     else if(IsKeyPressed(SDLK_SPACE))
     {
-        
+        scenes_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
     }
 }
 //-----------------------------------------------------------------------------
