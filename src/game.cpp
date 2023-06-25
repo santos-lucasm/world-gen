@@ -7,7 +7,7 @@ constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    if (SDL_Init(SDL_INIT_EVENTS) != 0)
     {
         //TODO: handle err
         return;
