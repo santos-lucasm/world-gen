@@ -47,6 +47,7 @@ private:
     /// @param y onedimensional position in matrix tile
     /// @return 
     bool Generate(const unsigned int x, const unsigned int y, int ref);
+    bool Generate(const unsigned int x, const unsigned int y);
 
     void SetWorldSeed(const unsigned int x, const unsigned int y);
 
