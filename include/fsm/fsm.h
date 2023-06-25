@@ -1,7 +1,7 @@
 #ifndef __FSM_H__
 #define __FSM_H__
 
-#include "fsm/event_types.h"
+enum class Event;
 
 class Fsm {
 public:
@@ -9,7 +9,7 @@ public:
 
     ~Fsm() {};
 
-    virtual void Update(Event e) = 0;
+    virtual void Next(Event e) = 0;
 };
 
 #endif

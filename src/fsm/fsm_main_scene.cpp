@@ -1,4 +1,5 @@
 #include "fsm/fsm_main_scene.h"
+#include "events/event_types.h"
 //-----------------------------------------------------------------------------
 FsmMainScene::FsmMainScene() : state_(MainSceneState::IDLE)
 {
@@ -10,24 +11,21 @@ FsmMainScene::~FsmMainScene()
     state_ = MainSceneState::IDLE;
 }
 //-----------------------------------------------------------------------------
-void FsmMainScene::Update(Event e)
+void FsmMainScene::Set(MainSceneState state)
+{
+    state_ = state;
+}
+//-----------------------------------------------------------------------------
+void FsmMainScene::Next(Event e)
 {
     switch(e)
     {
-        case Event::START_MAINSCENE_EXEC:
-            if(state_ == MainSceneState::IDLE)
-            {
-                state_ = MainSceneState::RUNNING;
-            }
-            break;
-        case Event::PAUSE_PROCEDURAL_GENERATION:
+        case Event::PAUSE_TRIGGERED:
             if(state_ == MainSceneState::RUNNING)
             {
                 state_ = MainSceneState::PAUSED;
             }
-            break;
-        case Event::RESUME_PROCEDURAL_GENERATION:
-            if(state_ == MainSceneState::PAUSED)
+            else
             {
                 state_ = MainSceneState::RUNNING;
             }

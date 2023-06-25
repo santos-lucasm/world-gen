@@ -1,21 +1,19 @@
 #include "game.h"
 #include "scenes/main_scene.h"
-#include "fsm/event_types.h"
-#include <iostream>
+#include "events/event_manager.h"
 //-----------------------------------------------------------------------------
 constexpr unsigned int W_WIDTH = 1024;
 constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    if (SDL_Init(SDL_INIT_EVENTS) != 0)
     {
         //TODO: handle err
         return;
     }
 
     scenes_.push(std::make_shared<MainScene>(W_WIDTH, W_HEIGHT));
-    CurrentScene()->Update(Event::START_MAINSCENE_EXEC);
 }
 //-----------------------------------------------------------------------------
 Game::~Game()
@@ -33,36 +31,12 @@ void Game::Run()
 
     while(IsRunning())
     {
-        //TODO: this loop will cover big events and commands such as "CLOSE"
-        //other events should be passed to be handled by the current window
         while (SDL_PollEvent(&sdlevent_))
         {
-            switch(sdlevent_.type)
-            {
-                case SDL_QUIT:
-                    is_running_ = false;
-                    break;
-                case SDL_KEYDOWN:
-                    if( sdlevent_.key.repeat == 0 && sdlevent_.key.keysym.sym == 32 )
-                    {
-                        game_event_ = Event::PAUSE_PROCEDURAL_GENERATION;
-                    }
-                    break;
-                case SDL_KEYUP:
-                    if( sdlevent_.key.keysym.sym == 32 )
-                    {
-                        game_event_ = Event::RESUME_PROCEDURAL_GENERATION;
-                    }
-                    break;
-                default:
-                    game_event_ = Event::NONE;
-                    break;
-            }
-            CurrentScene()->Update(game_event_);
+            HandleEvents();
         }
         
         CurrentScene()->Draw();
-
         SDL_Delay( 1000 / 60 ); // 60fps
     }
 }
@@ -75,5 +49,34 @@ std::shared_ptr<Scene> Game::CurrentScene()
 bool Game::IsRunning()
 {
     return is_running_;
+}
+//-----------------------------------------------------------------------------
+void Game::HandleEvents()
+{
+    static bool pause_button_already_entered_ = false;
+
+    if(sdlevent_.type == SDL_QUIT)
+    {
+        is_running_ = false;
+    }
+    else if(IsKeyPressed(SDLK_ESCAPE))
+    {
+        pause_button_already_entered_ = !pause_button_already_entered_;
+        EventManager::Instance()->NotifyPauseTriggered(Event::PAUSE_TRIGGERED, pause_button_already_entered_);
+    }
+    else if(IsKeyPressed(SDLK_SPACE))
+    {
+        
+    }
+}
+//-----------------------------------------------------------------------------
+bool Game::IsKeyPressed(SDL_Keycode key)
+{
+    if(sdlevent_.type == SDL_KEYDOWN && sdlevent_.key.repeat == 0
+        && sdlevent_.key.keysym.sym == key)
+    {
+        return true;
+    }
+    return false;
 }
 //-----------------------------------------------------------------------------

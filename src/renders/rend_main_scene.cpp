@@ -1,6 +1,15 @@
 #include "scenes/main_scene/world.h"
 #include "renders/rend_main_scene.h"
-
+//-----------------------------------------------------------------------------
+std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>>
+    RenderMainScene::color_map_ =
+        std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> {
+            {terrain_t::NONE,       {255, 255, 255}},   // white
+            {terrain_t::WATER,      {204, 204, 204}},   // #CCCCCC
+            {terrain_t::GROUND,     {128, 128, 128}},   // #808080
+            {terrain_t::MOUNTAIN,   {64, 64, 64}},      // #404040 #363636 #171717
+        };
+//-----------------------------------------------------------------------------
 RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int size_h)
     : sdl_renderer_(NULL)
 {
@@ -21,39 +30,25 @@ RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int s
         //TODO: handle err
         return;
     }
-
-    color_map_ = std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> {
-        {terrain_t::NONE,  {255, 255, 255}}, // white
-        {terrain_t::WATER, {0, 0, 255}}, // blue
-        {terrain_t::GROUND, {0, 255, 0}}, // green
-        {terrain_t::MOUNTAIN, {150, 75, 0}}, //brown
-    };
 }
-
+//-----------------------------------------------------------------------------
 RenderMainScene::~RenderMainScene()
 {
     SDL_DestroyRenderer(sdl_renderer_);
     SDL_DestroyWindow(window_);
 }
-
+//-----------------------------------------------------------------------------
 void RenderMainScene::Render(std::shared_ptr<World> world)
 {
-    // Set render color to red ( background will be rendered in this color )
-    auto [x, y] = world->GetWorldSize();
-    
-    // set bg to black
-    SDL_SetRenderDrawColor(sdl_renderer_, 0, 0, 0, 0);
+    ClearWindow();
 
-    // clears the screen
-    SDL_RenderClear(sdl_renderer_);
-
-    //for now, print x rectangles using world format
+    // Rect that will be used to render world tiles
     SDL_Rect rect;
     rect.w = 16;
     rect.h = 16;
 
-    // terrain_t current;
-
+    // Iterate over world size rendering itf
+    auto [x, y] = world->GetWorldSize();
     for(unsigned int j = 0; j < y; ++j)
     {
         for(unsigned int i = 0; i < x; ++i)
@@ -67,14 +62,20 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
                 std::get<1>(color_map_[current]),
                 std::get<2>(color_map_[current]), 128);
 
-            // update square position
+            // Update rect world relative position
             rect.x = i*16;
             rect.y = j*16;
 
-            // Render rect
             SDL_RenderFillRect(sdl_renderer_, &rect);
         }
     }
     // Render the rect to the screen
     SDL_RenderPresent(sdl_renderer_);
 }
+//-----------------------------------------------------------------------------
+void RenderMainScene::ClearWindow()
+{
+    SDL_SetRenderDrawColor(sdl_renderer_, 0, 0, 0, 0);
+    SDL_RenderClear(sdl_renderer_);
+}
+//-----------------------------------------------------------------------------
