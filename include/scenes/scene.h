@@ -1,7 +1,5 @@
-#ifndef __WINDOW_H__
-#define __WINDOW_H__
-
-enum class Event;
+#ifndef __SCENE_H__
+#define __SCENE_H__
 
 /// @brief Base abstract class for Scenes
 /// Will be used in storage with polymorphism
