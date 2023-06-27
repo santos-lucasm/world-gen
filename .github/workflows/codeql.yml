@@ -70,8 +70,9 @@ jobs:
         sudo apt-get update -y -qq
         sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev
         sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_image
+        sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf
         sudo cp sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
-        sudo cat /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
+        sudo cp sdl2_ttf-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/sdl2_ttf-config.cmake
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
