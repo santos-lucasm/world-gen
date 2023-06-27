@@ -15,27 +15,18 @@ EventManager is also a singleton, so different code sections can easily subscrib
 
 Tested with WSL2 v5.10.16.3 using Linux Ubuntu 20.04 LTS
 
-`libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev`
+`libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-dev`
 
 
 ## Help cmake to find SDL Image library
 
-Create file `/usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake`
-
-Add the following content:
-
-```
-set(prefix "/usr") 
-set(exec_prefix "${prefix}")
-set(libdir "${prefix}/lib/x86_64-linux-gnu")
-set(SDL2_IMAGE_PREFIX "/usr")
-set(SDL2_IMAGE_EXEC_PREFIX "/usr")
-set(SDL2_IMAGE_INCLUDE_DIRS "${prefix}/include/SDL2_image")
-set(SDL2_IMAGE_LIBRARIES "-lSDL2_image")
-```
+Copy `sdl2_image-config.cmake` to `/usr/lib/x86_64-linux-gnu/cmake/sdl2_image/`
+Copy `sdl2_ttf-config.cmake` to `/usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/`
 
 ## Special thanks
 
 - [SonDanielson](https://sondanielson.itch.io/gameboy-simple-rpg-tileset) for the amazing tilesheet.
 
 - [Abaddon](https://caffinate.itch.io/abaddon) for the amazing text fonts.
+
+- [Reputeless](https://github.com/Reputeless/PerlinNoise/tree/master) for the perlin noise C++ library.
