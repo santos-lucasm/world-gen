@@ -1,4 +1,5 @@
 ![cmake build status](https://github.com/santos-lucasm/world-gen/actions/workflows/cmake.yml/badge.svg?event=push)
+![codeql build status](https://github.com/santos-lucasm/world-gen/actions/workflows/codeql.yml/badge.svg?event=push)
 
 ## Ideas and objetives
 
