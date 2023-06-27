@@ -17,8 +17,15 @@ private:
     void ClearWindow();
 
     /// @brief rectangle that covers texture inside the tilesheet
-    SDL_Rect title_position_;
     SDL_Rect texture_position_;
+
+    /// @brief rectangle that positions texture relative to screen
+    SDL_Rect title_position_;
+    TTF_Font* text_font_;
+    SDL_Surface* text_surface_;
+    SDL_Texture* text_texture_;
+    SDL_Rect text_position_;
+    
 };
 
 #endif
