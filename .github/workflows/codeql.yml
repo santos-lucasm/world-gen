@@ -25,10 +25,6 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  cmakebuild:
-    name: Build
-    uses: santos-lucasm/world-gen/.github/workflows/cmake.yml@master
-
   analyze:
     name: Analyze
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
@@ -68,7 +64,7 @@ jobs:
       run: |
         sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
         sudo apt-get update -y -qq
-        sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev
+        sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-dev
         sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_image
         sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf
         sudo cp sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
