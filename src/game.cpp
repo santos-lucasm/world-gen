@@ -1,3 +1,4 @@
+#include <cassert>
 #include "game.h"
 #include "scenes/main_scene.h"
 #include "scenes/title_scene.h"
@@ -8,15 +9,10 @@ constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
 Game::Game() : is_running_(false)
 {
-    //TODO: handle err
-    if (SDL_Init(SDL_INIT_EVENTS) != 0)
-    {
-        return;
-    }
-    if (!IMG_Init(IMG_INIT_PNG))
-    {
-        return;
-    }
+    assert(SDL_Init(SDL_INIT_EVENTS) == 0);
+    assert(IMG_Init(IMG_INIT_PNG) != 0);
+    assert(TTF_Init() == 0);
+
     scenes_.push(std::make_shared<TitleScene>(W_WIDTH, W_HEIGHT));
 }
 //-----------------------------------------------------------------------------
@@ -26,6 +22,7 @@ Game::~Game()
     {
         scenes_.pop();
     }
+    TTF_Quit();
     SDL_Quit();
 }
 //-----------------------------------------------------------------------------
