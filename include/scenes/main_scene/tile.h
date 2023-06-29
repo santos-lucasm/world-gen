@@ -23,6 +23,7 @@ public:
     void Initialize();
 
     void SetTerrain(const unsigned int type);
+    void SetPerlinTerrain(double type);
 
     /// @brief Inform current tile seed status. Once tile is defined as a seed
     /// it'll always be a world seed

@@ -20,5 +20,5 @@ include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_directories(${PROJECT_NAME} PRIVATE src)
 target_link_libraries(  ${PROJECT_NAME} libsrc libscenes libmain_scene
-    librenders libevents ${SDL2_LIBRARIES} SDL2_image SDL2_ttf)
+    librenders libevents libutils ${SDL2_LIBRARIES} SDL2_image SDL2_ttf)
 # NOTE THAT libfsm WAS REMOVED FROM LINKING

@@ -1,6 +1,6 @@
-#include "scenes/main_scene/world.h"
-#include "scenes/main_scene/randomizer.h"
 #include <thread>
+#include "scenes/main_scene/world.h"
+#include "utils/randomizer.h"
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)
     : size_x_(size_x), size_y_(size_y)
@@ -114,6 +114,36 @@ bool World::Generate(const unsigned int x, const unsigned int y, int ref)
     return true;
 }
 //-----------------------------------------------------------------------------
+bool World::Generate(const unsigned int x, const unsigned int y)
+{
+    if(x < 0 || x >= size_x_)
+        return false;
+    if(y < 0 || y >= size_y_)
+        return false;
+    if(tiles_[y][x].IsInitialized() )
+        return false;
+
+#ifdef DEBUG
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+#endif
+    // spin lock if generation is not running anymore (user pause)
+    while(!is_running_.load(std::memory_order_acquire));
+
+    double generated_terrain = 0;
+    {
+        std::scoped_lock lock(tiles_guard_);
+        generated_terrain = rand_->PerlinNoise(x, y);
+        tiles_[y][x].SetPerlinTerrain(generated_terrain);
+        tiles_[y][x].Initialize();
+    }
+
+    Generate(x-1, y);
+    Generate(x+1, y);
+    Generate(x, y+1);
+    Generate(x, y-1);
+    return true;
+}
+//-----------------------------------------------------------------------------
 bool World::IsValidSize(const unsigned int size)
 {
     if(size < 1 || size > 1024)
@@ -129,6 +159,6 @@ void World::SetWorldSeed(const unsigned int x, const unsigned int y)
         std::scoped_lock lock(tiles_guard_);
         tiles_[y][x].SetAsSeed();
     }
-    Generate(x, y, 0);
+    Generate(x, y);
 }
 //-----------------------------------------------------------------------------

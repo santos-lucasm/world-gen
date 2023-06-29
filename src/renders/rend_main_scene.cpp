@@ -4,10 +4,11 @@
 std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>>
     RenderMainScene::color_map_ =
         std::map<terrain_t, std::tuple<uint8_t, uint8_t, uint8_t>> {
-            {terrain_t::NONE,       {255, 255, 255}},   // white
-            {terrain_t::WATER,      {204, 204, 204}},   // #CCCCCC
-            {terrain_t::GROUND,     {128, 128, 128}},   // #808080
-            {terrain_t::MOUNTAIN,   {64, 64, 64}},      // #404040 #363636 #171717
+            {terrain_t::NONE,       {255, 255, 255}},
+            {terrain_t::WATER,      {0xCC, 0xCC, 0xCC}},
+            {terrain_t::GROUND,     {0x80, 0x80, 0x80}},
+            {terrain_t::HILL,       {0x40, 0x40, 0x40}},
+            {terrain_t::MOUNTAIN,   {0x17, 0x17, 0x17}},
         };
 //-----------------------------------------------------------------------------
 RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int size_h)
