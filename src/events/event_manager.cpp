@@ -2,26 +2,22 @@
 #include <iostream>
 //TODO: log debug this file
 //-----------------------------------------------------------------------------
-std::shared_ptr<EventManager> EventManager::instance_ = nullptr;
 std::map<Event, std::shared_ptr< std::vector<EventListener*> >>
     EventManager::listeners_ =
 {
-    {Event::PAUSE_TRIGGERED, std::make_shared<std::vector<EventListener*>>()}
+    { Event::PAUSE_TRIGGERED, std::make_shared<std::vector<EventListener*>>() }
 };
 //-----------------------------------------------------------------------------
 std::shared_ptr<EventManager> EventManager::Instance()
 {
-    if(instance_ == nullptr)
-    {
-        instance_ = std::make_shared<EventManager>();
-    }
-    return instance_;
+    static auto instance = std::make_shared<EventManager>();
+    return instance;
 }
 //-----------------------------------------------------------------------------
 void EventManager::Subscribe(Event e, EventListener* listener)
 {
     auto [subscribed, pos] = AlreadySubscribed(e, listener);
-    if(!subscribed)
+    if(false == subscribed)
     {
         EventCurrentListeners(e)->push_back(listener);
         std::cout << listener->Id() << " subscribed to event "
@@ -32,7 +28,7 @@ void EventManager::Subscribe(Event e, EventListener* listener)
 void EventManager::Unsubscribe(Event e, EventListener* listener)
 {
     auto [subscribed, pos] = AlreadySubscribed(e, listener);
-    if(subscribed)
+    if(true == subscribed)
     {
         auto listeners = EventCurrentListeners(e);
         listeners->erase(pos);
@@ -71,6 +67,6 @@ std::shared_ptr<std::vector<EventListener*>>
     EventManager::EventCurrentListeners(Event e)
 {
     //TODO: handle unknown event
-    return instance_->listeners_[e];
+    return listeners_[e];
 }
 //-----------------------------------------------------------------------------

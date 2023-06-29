@@ -8,8 +8,7 @@
 #include "events/event_types.h"
 
 /// @brief Handles events
-/// One notify for every event, i.e NotifyNewScene(EVENT_DATA), and
-/// one listener array for each specific event.
+/// One notify for every event, i.e NotifyNewScene(EVENT_DATA)
 /// Button presses are NOT events, they're inputs that need
 /// to be converted to real events that will call specific Notifies.
 class EventManager
@@ -53,9 +52,6 @@ private:
     static std::shared_ptr<std::vector<EventListener*>>
         EventCurrentListeners(Event e);
 private:
-    /// @brief Stores singleton instance of the class
-    static std::shared_ptr<EventManager> instance_;
-
     /// @brief Maps events to listeners container 
     static std::map<Event,
         std::shared_ptr< std::vector<EventListener*> >> listeners_;
