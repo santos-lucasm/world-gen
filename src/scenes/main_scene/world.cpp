@@ -87,11 +87,11 @@ bool World::Generate(const unsigned int x, const unsigned int y, int ref)
         std::scoped_lock lock(tiles_guard_);
         if(tiles_[y][x].IsSeed() && ref == 0)
         {
-            generated_terrain = rand_->Generate();
+            generated_terrain = rand_->GenerateWithUniformDist();
         }
         else
         {
-            generated_terrain = rand_->Generate(ref);
+            generated_terrain = rand_->GenerateWithNormalDist(ref);
         }
         tiles_[y][x].SetTerrain(generated_terrain);
         tiles_[y][x].Initialize();
@@ -124,7 +124,7 @@ bool World::Generate(const unsigned int x, const unsigned int y)
         return false;
 
 #ifdef DEBUG
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 #endif
     // spin lock if generation is not running anymore (user pause)
     while(!is_running_.load(std::memory_order_acquire));
