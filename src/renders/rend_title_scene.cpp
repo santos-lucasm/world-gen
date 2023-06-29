@@ -5,50 +5,66 @@ RenderTitleScene::RenderTitleScene(const unsigned int size_w,
     const unsigned int size_h)
     : IRenderer(size_w, size_h)
 {
-    texture_ = IMG_LoadTexture(renderer_, "../assets/gb_tilesheet.png");
-    assert(texture_);
-
-    // image position in tilesheet
-    texture_position_.x = 7 * 16;
-    texture_position_.y = 5 * 16;
-    texture_position_.w = 3 * 16;
-    texture_position_.h = 2 * 16;
-
-    // static image position in screen
-    title_position_.x = size_w/2 - (texture_position_.w/2 * 4);
-    title_position_.y = size_h/2 - (texture_position_.h/2 * 4);
-    title_position_.w = texture_position_.w * 4;
-    title_position_.h = texture_position_.h * 4;
-
-    // configure title caption instruction
-    text_font_ = TTF_OpenFont("../assets/ttf/abaddon_bold.ttf", 30);
-    assert(text_font_);
-
-    text_surface_ = TTF_RenderText_Solid(text_font_, "PRESS SPACE TO CONTINUE...", SDL_Color{0x00, 0x00, 0x00, 0});
-    assert(text_surface_);
-
-    text_texture_ = SDL_CreateTextureFromSurface(renderer_, text_surface_);
-    assert(text_texture_);
-
-    text_position_.x = size_w/2 - text_surface_->w/2;
-    text_position_.y = size_h   - size_h/10;
-    text_position_.w = text_surface_->w;
-    text_position_.h = text_surface_->h;
-    SDL_FreeSurface(text_surface_);
-    // SDL_DestroyTexture(text_texture_);
+    SetLogo(size_w, size_h);
+    SetCaption(size_w, size_h);
+}
+//-----------------------------------------------------------------------------
+RenderTitleScene::~RenderTitleScene()
+{
+    SDL_DestroyTexture(caption_texture_);
+    SDL_DestroyTexture(logo_texture_);
+    TTF_CloseFont(caption_font_);
 }
 //-----------------------------------------------------------------------------
 void RenderTitleScene::Render()
 {
     SDL_SetRenderDrawColor(renderer_, 0xFD, 0xFD, 0x96, 128);
     ClearWindow();
-    SDL_RenderCopy(renderer_, texture_, &texture_position_, &title_position_);
-    SDL_RenderCopy(renderer_, text_texture_, NULL, &text_position_);
+    SDL_RenderCopy(renderer_, logo_texture_, &logo_texture_position_,
+        &logo_screen_position_);
+    SDL_RenderCopy(renderer_, caption_texture_, NULL, &caption_position_);
     SDL_RenderPresent(renderer_);
 }
 //-----------------------------------------------------------------------------
-void RenderTitleScene::ClearWindow()
+void RenderTitleScene::SetLogo(const unsigned int size_w,
+    const unsigned int size_h)
 {
-    SDL_RenderClear(renderer_);
+    // load title sheet into texture
+    logo_texture_ = IMG_LoadTexture(renderer_, "../assets/gb_tilesheet.png");
+    assert(logo_texture_);
+
+    // retrieve logo place inside loaded texture tilesheet
+    logo_texture_position_.x = 7 * 16;
+    logo_texture_position_.y = 5 * 16;
+    logo_texture_position_.w = 3 * 16;
+    logo_texture_position_.h = 2 * 16;
+
+    // static image position in screen
+    logo_screen_position_.x = size_w/2 - (logo_texture_position_.w/2 * 4);
+    logo_screen_position_.y = size_h/2 - (logo_texture_position_.h/2 * 4);
+    logo_screen_position_.w = logo_texture_position_.w * 4;
+    logo_screen_position_.h = logo_texture_position_.h * 4;
+}
+//-----------------------------------------------------------------------------
+void RenderTitleScene::SetCaption(const unsigned int size_w,
+    const unsigned int size_h)
+{
+    // init ttf font
+    caption_font_ = TTF_OpenFont("../assets/ttf/abaddon_bold.ttf", 30);
+    assert(caption_font_);
+
+    SDL_Surface* caption_surface_ = TTF_RenderText_Solid(caption_font_,
+        "PRESS SPACE TO CONTINUE...", SDL_Color{0x00, 0x00, 0x00, 0});
+    assert(caption_surface_);
+
+    caption_texture_ =
+        SDL_CreateTextureFromSurface(renderer_, caption_surface_);
+    assert(caption_texture_);
+
+    caption_position_.x = size_w/2 - caption_surface_->w/2;
+    caption_position_.y = size_h   - size_h/10;
+    caption_position_.w = caption_surface_->w;
+    caption_position_.h = caption_surface_->h;
+    SDL_FreeSurface(caption_surface_);
 }
 //-----------------------------------------------------------------------------

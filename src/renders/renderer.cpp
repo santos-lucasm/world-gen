@@ -1,3 +1,4 @@
+#include <cassert>
 #include "renders/renderer.h"
 //-----------------------------------------------------------------------------
 SDL_Window* IRenderer::window_ = nullptr;
@@ -15,9 +16,14 @@ IRenderer::~IRenderer()
     SDL_DestroyWindow(window_);
 }
 //-----------------------------------------------------------------------------
+void IRenderer::ClearWindow()
+{
+    SDL_RenderClear(renderer_);
+}
+//-----------------------------------------------------------------------------
 void IRenderer::InitWindow(const unsigned int size_w, const unsigned int size_h)
 {
-    if(window_)
+    if(nullptr != window_)
     {
         return;
     }
@@ -26,15 +32,12 @@ void IRenderer::InitWindow(const unsigned int size_w, const unsigned int size_h)
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
                                 size_w, size_h, 0);
-    if(!window_)
-    {
-        //TODO: handle err
-    }
+    assert(window_);
 }
 //-----------------------------------------------------------------------------
 void IRenderer::InitRenderer()
 {
-    if(renderer_)
+    if(nullptr != renderer_)
     {
         return;
     }
@@ -42,9 +45,6 @@ void IRenderer::InitRenderer()
     renderer_ = SDL_CreateRenderer(window_, -1,
         SDL_RENDERER_ACCELERATED |
         SDL_RENDERER_PRESENTVSYNC );
-    if(!renderer_)
-    {
-        //TODO: handle err
-    }
+    assert(renderer_);
 }
 //-----------------------------------------------------------------------------

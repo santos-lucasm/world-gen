@@ -19,10 +19,13 @@ public:
 
     /// @brief Destroy renderer and window references
     ~IRenderer();
-
+protected:
     // FIXME: Force derivate classes to implement Render, but each class
     // may need its own parameters to be rendered...
     // void Render() = 0;
+
+    /// @brief Clears whole scene with the current draw color
+    void ClearWindow();
 private:
     /// @brief Initializes window instance
     void InitWindow(const unsigned int size_w, const unsigned int size_h);
@@ -35,9 +38,6 @@ protected:
 
     /// @brief SDL renderer reference used to render objects
     static SDL_Renderer* renderer_;
-
-    /// @brief not used for now
-    SDL_Texture* texture_;
 };
 
 

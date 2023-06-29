@@ -1,5 +1,5 @@
-#include "events/event_manager.h"
 #include <iostream>
+#include "events/event_manager.h"
 //TODO: log debug this file
 //-----------------------------------------------------------------------------
 std::map<Event, std::shared_ptr< std::vector<EventListener*> >>

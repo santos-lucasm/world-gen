@@ -19,10 +19,11 @@ RenderMainScene::RenderMainScene(const unsigned int size_w, const unsigned int s
 //-----------------------------------------------------------------------------
 void RenderMainScene::Render(std::shared_ptr<World> world)
 {
+    SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 0);
     ClearWindow();
 
     // Rect that will be used to render world tiles
-    SDL_Rect rect;
+    static SDL_Rect rect;
     rect.w = 16;
     rect.h = 16;
 
@@ -32,29 +33,24 @@ void RenderMainScene::Render(std::shared_ptr<World> world)
     {
         for(unsigned int i = 0; i < x; ++i)
         {
-            auto current = world->GetTerrain(i, j);
+            auto title_terrain = world->GetTerrain(i, j);
 
-            if(current == terrain_t::NONE) continue;
+            if(terrain_t::NONE == title_terrain)
+            {
+                continue;
+            }
 
-            SDL_SetRenderDrawColor(renderer_,
-                std::get<0>(color_map_[current]),
-                std::get<1>(color_map_[current]),
-                std::get<2>(color_map_[current]), 128);
-
-            // Update rect world relative position
             rect.x = i*16;
             rect.y = j*16;
 
+            SDL_SetRenderDrawColor(renderer_,
+                std::get<0>(color_map_[title_terrain]),
+                std::get<1>(color_map_[title_terrain]),
+                std::get<2>(color_map_[title_terrain]), 128);
             SDL_RenderFillRect(renderer_, &rect);
         }
     }
     // Render the rect to the screen
     SDL_RenderPresent(renderer_);
-}
-//-----------------------------------------------------------------------------
-void RenderMainScene::ClearWindow()
-{
-    SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0);
-    SDL_RenderClear(renderer_);
 }
 //-----------------------------------------------------------------------------
