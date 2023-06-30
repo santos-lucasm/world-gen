@@ -42,7 +42,7 @@ void Game::Run()
     }
 }
 //-----------------------------------------------------------------------------
-std::shared_ptr<Scene> Game::CurrentScene()
+std::shared_ptr<IScene> Game::CurrentScene()
 {
     return scenes_.top();
 }

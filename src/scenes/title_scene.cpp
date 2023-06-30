@@ -2,9 +2,9 @@
 #include "renders/rend_title_scene.h"
 //-----------------------------------------------------------------------------
 TitleScene::TitleScene(const unsigned int size_w, const unsigned int size_h)
-    : Scene(), EventListener("TitleScene")
+    : IScene(), EventListener("TitleScene")
 {
-    render_ = std::make_unique<RenderTitleScene>(size_w, size_h);
+    title_scene_render_ = std::make_unique<RenderTitleScene>(size_w, size_h);
 }
 //-----------------------------------------------------------------------------
 TitleScene::~TitleScene()
@@ -14,6 +14,6 @@ TitleScene::~TitleScene()
 //-----------------------------------------------------------------------------
 void TitleScene::Draw()
 {
-    render_->Render();
+    title_scene_render_->Render();
 }
 //-----------------------------------------------------------------------------

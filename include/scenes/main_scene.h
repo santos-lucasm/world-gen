@@ -8,7 +8,8 @@
 class World;
 class RenderMainScene;
 
-class MainScene : public Scene,
+/// @brief Scene responsible for running the procedural generation
+class MainScene : public IScene,
                   public EventListener {
 public:
     /// @brief Create window, init scene helpers and start procedural
@@ -23,11 +24,14 @@ public:
     /// @brief Call scene render to draw internal objects
     void Draw() override;
 
+    /// @brief called in PAUSE_TRIGGERED event
+    /// @param entered_pause_mode true if entering pause, false otherwise
     void OnPause(bool entered_pause_mode) override;
 private:
+    /// @brief procedural generated world object of this scene
     std::shared_ptr<World> world_;
-    std::unique_ptr<RenderMainScene> w_render_;
-    const unsigned int x_blocks_;
-    const unsigned int y_blocks_;
+
+    /// @brief renderer used to render this scene
+    std::unique_ptr<RenderMainScene> main_scene_render_;
 };
 #endif

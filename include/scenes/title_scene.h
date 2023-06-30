@@ -7,7 +7,8 @@
 
 class RenderTitleScene;
 
-class TitleScene : public Scene,
+/// @brief Scene responsible for starting app to user
+class TitleScene : public IScene,
                   public EventListener {
 public:
     /// @brief Init scene helpers
@@ -20,9 +21,8 @@ public:
 
     /// @brief Call scene render to draw internal objects
     void Draw() override;
-
-    // void OnPause(bool entered_pause_mode) override;
 private:
-    std::unique_ptr<RenderTitleScene> render_;
+    /// @brief renderer used to render this scene
+    std::unique_ptr<RenderTitleScene> title_scene_render_;
 };
 #endif
