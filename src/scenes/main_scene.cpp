@@ -39,7 +39,7 @@ void MainScene::Draw()
 //-----------------------------------------------------------------------------
 void MainScene::OnPause(bool entered_pause_mode)
 {
-    if(entered_pause_mode)
+    if(true == entered_pause_mode)
     {
         world_->Pause();
     }
