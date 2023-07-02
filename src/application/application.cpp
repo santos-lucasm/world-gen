@@ -1,5 +1,5 @@
 #include <cassert>
-#include "application/game.h"
+#include "application/application.h"
 #include "scenes/main_scene.h"
 #include "scenes/title_scene.h"
 #include "events/event_manager.h"
@@ -7,7 +7,7 @@
 constexpr unsigned int W_WIDTH = 1024;
 constexpr unsigned int W_HEIGHT = 768;
 //-----------------------------------------------------------------------------
-Game::Game() : is_running_(false)
+Application::Application() : is_running_(false)
 {
     assert(SDL_Init(SDL_INIT_EVENTS) == 0);
     assert(IMG_Init(IMG_INIT_PNG) != 0);
@@ -16,7 +16,7 @@ Game::Game() : is_running_(false)
     scenes_.push(std::make_shared<TitleScene>(W_WIDTH, W_HEIGHT));
 }
 //-----------------------------------------------------------------------------
-Game::~Game()
+Application::~Application()
 {
     while(!scenes_.empty())
     {
@@ -26,7 +26,7 @@ Game::~Game()
     SDL_Quit();
 }
 //-----------------------------------------------------------------------------
-void Game::Run()
+void Application::Run()
 {
     is_running_ = true;
 
@@ -42,17 +42,17 @@ void Game::Run()
     }
 }
 //-----------------------------------------------------------------------------
-std::shared_ptr<IScene> Game::CurrentScene()
+std::shared_ptr<IScene> Application::CurrentScene()
 {
     return scenes_.top();
 }
 //-----------------------------------------------------------------------------
-bool Game::IsRunning()
+bool Application::IsRunning()
 {
     return is_running_;
 }
 //-----------------------------------------------------------------------------
-void Game::HandleEvents()
+void Application::HandleEvents()
 {
     //https://stackoverflow.com/questions/24727184/zooming-an-image-while-keeping-it-centered-in-sdl2
     static bool pause_button_already_entered_ = false;
@@ -84,7 +84,7 @@ void Game::HandleEvents()
     }
 }
 //-----------------------------------------------------------------------------
-bool Game::IsKeyPressed(SDL_Keycode key)
+bool Application::IsKeyPressed(SDL_Keycode key)
 {
     if(sdlevent_.type == SDL_KEYDOWN && sdlevent_.key.repeat == 0
         && sdlevent_.key.keysym.sym == key)

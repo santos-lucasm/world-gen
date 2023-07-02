@@ -1,3 +1,3 @@
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-add_library(libapp game.cpp)
+add_library(libapp application.cpp)

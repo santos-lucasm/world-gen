@@ -1,5 +1,5 @@
-#ifndef __GAME_H__
-#define __GAME_H__
+#ifndef __APPLICATION_H__
+#define __APPLICATION_H__
 
 #include <memory>
 #include <stack>
@@ -13,10 +13,10 @@ extern "C" {
 class IScene;
 enum class Event;
 
-class Game {
+class Application {
 public:
-    Game();
-    ~Game();
+    Application();
+    ~Application();
     void Run();
 private:
     std::shared_ptr<IScene> CurrentScene();

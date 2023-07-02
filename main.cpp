@@ -1,9 +1,9 @@
-#include "application/game.h"
+#include "application/application.h"
 #include <thread>
 
 int main()
 {
-    Game world_gen;
+    Application world_gen;
     world_gen.Run();
     return 0;
 }
