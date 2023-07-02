@@ -11,7 +11,7 @@ class IApplicationState {
 public:
     IApplicationState(Application* app);
 
-    ~IApplicationState();
+    virtual ~IApplicationState();
 
     virtual void HandleEvents() = 0;
 protected:
