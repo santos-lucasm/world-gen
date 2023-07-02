@@ -1,3 +1,4 @@
+#include <cassert>
 #include "scenes/main_scene/tile.h"
 //-----------------------------------------------------------------------------
 Tile::Tile() : seed_(false), init_(false), terrain_(terrain_t::NONE)
@@ -17,20 +18,23 @@ void Tile::SetAsSeed()
 //-----------------------------------------------------------------------------
 void Tile::SetTerrain(const unsigned int type)
 {
+    assert((0 <= type) && (MAX_TERRAIN_TYPES > type));
+
     terrain_ = static_cast<terrain_t>(type);
 }
 //-----------------------------------------------------------------------------
 void Tile::SetPerlinTerrain(double type)
 {
-    if(type <= 0.25)
+    assert((0 <= type) && (1 >= type));
+    if(0.25 >= type)
     {
         terrain_ = terrain_t::WATER;
     }
-    else if(type <= 0.50)
+    else if(0.50 >= type)
     {
         terrain_ = terrain_t::GROUND;
     }
-    else if(type <= 0.75)
+    else if(0.75 >= type)
     {
         terrain_ = terrain_t::HILL;
     }

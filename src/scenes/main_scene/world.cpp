@@ -1,14 +1,16 @@
 #include <thread>
+#include <cassert>
 #include "scenes/main_scene/world.h"
 #include "utils/randomizer.h"
+#include "scenes/main_scene/tile.h"
+
+//-----------------------------------------------------------------------------
+
 //-----------------------------------------------------------------------------
 World::World(const unsigned int size_x, const unsigned int size_y)
     : size_x_(size_x), size_y_(size_y)
 {
-    if( !IsValidSize(size_x_) || !IsValidSize(size_y_) )
-    {
-        //TODO: handle error
-    }
+    assert(IsValidSize(size_x_) && IsValidSize(size_y_));
 
     tiles_ = std::make_unique< std::unique_ptr<Tile[]> []>(size_y_);
     for(unsigned int i = 0; i < size_y_; ++i)
@@ -17,32 +19,30 @@ World::World(const unsigned int size_x, const unsigned int size_y)
     }
 
     rand_ = std::make_unique<Randomizer>(MAX_TERRAIN_TYPES);
-    is_running_.store(false, std::memory_order_release);
+    std::atomic_exchange(&is_running_, false);
 }
 //-----------------------------------------------------------------------------
-World::~World()
-{
-
-}
+World::~World() = default;
 //-----------------------------------------------------------------------------
 void World::ProceduralGeneration(const unsigned int x, const unsigned int y)
 {
     static int n_threads_running = 0;
     n_threads_running++;
-    is_running_.store(true, std::memory_order_release);
+    //FIXME: identify if paused state to not auto start (maybe?)
+    std::atomic_exchange(&is_running_, true);
 
     SetWorldSeed(x, y);
 
     n_threads_running--;
     if(n_threads_running == 0)
     {
-        is_running_.store(false, std::memory_order_release);
+        std::atomic_exchange(&is_running_, false);
     }
 }
 //-----------------------------------------------------------------------------
 terrain_t World::GetTerrain(const unsigned int x, const unsigned int y)
 {
-
+    assert(size_x_ > x && size_y_ > y);
     return tiles_[y][x].GetTerrain();
 }
 //------------------------------------------------------------------------------
@@ -53,17 +53,17 @@ std::tuple<const unsigned int, const unsigned int> World::GetWorldSize()
 //------------------------------------------------------------------------------
 void World::Pause()
 {
-    if(is_running_.load(std::memory_order_acquire))
+    if(std::atomic_load(&is_running_))
     {
-        is_running_.store(false, std::memory_order_release);
+        std::atomic_exchange(&is_running_, false);
     }
 }
 //------------------------------------------------------------------------------
 void World::Play()
 {
-    if(!is_running_.load(std::memory_order_acquire))
+    if(false == std::atomic_load(&is_running_))
     {
-        is_running_.store(true, std::memory_order_release);
+        std::atomic_exchange(&is_running_, true);
     }
 }
 //------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ bool World::Generate(const unsigned int x, const unsigned int y, int ref)
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
 #endif
     // spin lock if generation is not running anymore (user pause)
-    while(!is_running_.load(std::memory_order_acquire));
+    while(false == std::atomic_load(&is_running_));
 
     int generated_terrain = 0;
     {
@@ -127,7 +127,7 @@ bool World::Generate(const unsigned int x, const unsigned int y)
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 #endif
     // spin lock if generation is not running anymore (user pause)
-    while(!is_running_.load(std::memory_order_acquire));
+    while(false == std::atomic_load(&is_running_));
 
     double generated_terrain = 0;
     {
