@@ -13,12 +13,12 @@ find_package(SDL2 REQUIRED sdl2)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-add_executable(${PROJECT_NAME} app.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 add_subdirectory(src)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_directories(${PROJECT_NAME} PRIVATE src)
-target_link_libraries(  ${PROJECT_NAME} libsrc libscenes libmain_scene
-    librenders libevents libutils ${SDL2_LIBRARIES} SDL2_image SDL2_ttf)
-# NOTE THAT libfsm WAS REMOVED FROM LINKING
+target_link_libraries(  ${PROJECT_NAME} libapp libscenes libmain_scene
+    librenders libevents libutils
+    ${SDL2_LIBRARIES} SDL2_image SDL2_ttf)

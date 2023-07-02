@@ -1,7 +1,7 @@
 #ifndef __FSM_MAIN_SCENE_H__
 #define __FSM_MAIN_SCENE_H__
 
-#include "fsm/fsm.h"
+#include "application/fsm.h"
 
 enum class Event;
 

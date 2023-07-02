@@ -1,4 +1,4 @@
-#include "game.h"
+#include "application/game.h"
 #include <thread>
 
 int main()

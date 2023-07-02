@@ -1,4 +1,4 @@
-#include "fsm/fsm_main_scene.h"
+#include "application/fsm_main_scene.h"
 #include "events/event_types.h"
 //-----------------------------------------------------------------------------
 FsmMainScene::FsmMainScene() : state_(MainSceneState::IDLE)

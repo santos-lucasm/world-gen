@@ -1,5 +1,5 @@
 #include <cassert>
-#include "game.h"
+#include "application/game.h"
 #include "scenes/main_scene.h"
 #include "scenes/title_scene.h"
 #include "events/event_manager.h"
