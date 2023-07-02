@@ -23,6 +23,7 @@ Application::~Application()
         scenes_.pop();
     }
     TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 //-----------------------------------------------------------------------------
