@@ -124,7 +124,7 @@ bool World::Generate(const unsigned int x, const unsigned int y)
         return false;
 
 #ifdef DEBUG
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
 #endif
     // spin lock if generation is not running anymore (user pause)
     while(false == std::atomic_load(&is_running_));
