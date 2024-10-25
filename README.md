@@ -18,18 +18,30 @@
 - REQ06: User may click anywhere on the white background to select that tile and make it a procedural seed. User may choose more than one seed. User may choose seeds with SetupScene opened, but only at white background.
 - REQ07: Press Start button in SetupScene to start generating tiles from the choosen seeds (all the same time)
 
-## Dependencies
+## Build
 
-Tested with WSL2 v5.10.16.3 using Linux Ubuntu 20.04 LTS
+Help cmake to find the SDL2 libraries
 
-`libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-dev`
+```
+sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_image
+sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf
+sudo cp cmake/sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
+sudo cp cmake/sdl2_ttf-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/sdl2_ttf-config.cmake
+```
 
+```
+mkdir build && cd build
+cmake ..
+make
 
-## Help cmake to find SDL libraries
+ln -s compile_commands.json ../
+```
 
-Copy `sdl2_image-config.cmake` to `/usr/lib/x86_64-linux-gnu/cmake/sdl2_image/`
+Tested with:
+- WSL2 v5.10.16.3 using Linux Ubuntu 20.04 LTS
+- Zorin OS 17.2 x86_64
 
-Copy `sdl2_ttf-config.cmake` to `/usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/`
+`sudo apt install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-dev`
 
 ## Special thanks
 

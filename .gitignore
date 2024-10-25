@@ -1,3 +1,5 @@
 .vscode
+.cache
 build
 documentation
+compile_commands.json
