@@ -28,8 +28,8 @@ jobs:
         sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-dev
         sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_image
         sudo mkdir /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf
-        sudo cp sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
-        sudo cp sdl2_ttf-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/sdl2_ttf-config.cmake
+        sudo cp cmake/sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_image/sdl2_image-config.cmake
+        sudo cp cmake/sdl2_ttf-config.cmake /usr/lib/x86_64-linux-gnu/cmake/sdl2_ttf/sdl2_ttf-config.cmake
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
